@@ -1,0 +1,12 @@
+// Keep the namespace URI as is. Submissions should be anonymous.
+
+@namespace(uri="http://cs.york.ac.uk/eng2/202425/offers", prefix="dis")
+package offers;
+
+// Placeholder class to generate some code - replace from here on with your metamodel.
+//
+// You may want to delete the old generated code in src/ before generating code from the .genmodel.
+
+class Model {
+	
+}
