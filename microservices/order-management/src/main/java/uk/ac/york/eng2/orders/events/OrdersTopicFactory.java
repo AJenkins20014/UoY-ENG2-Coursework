@@ -10,10 +10,10 @@ import org.apache.kafka.clients.admin.NewTopic;
 @Factory
 public class OrdersTopicFactory {
 
-    public static final String ORDERITEM_CREATED_TOPIC = "orderItem-created";
+    public static final String ORDER_CREATED_TOPIC = "order-created";
 
     @Bean
-    public NewTopic orderItemCreatedTopic() {
-        return new NewTopic(ORDERITEM_CREATED_TOPIC, 3, (short) 1);
+    public NewTopic orderCreatedTopic() {
+        return new NewTopic(ORDER_CREATED_TOPIC, 3, (short) 1);
     }
 }

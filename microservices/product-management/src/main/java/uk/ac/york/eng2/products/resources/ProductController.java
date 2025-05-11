@@ -5,24 +5,27 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import uk.ac.york.eng2.products.domain.Product;
+import uk.ac.york.eng2.products.domain.Tag;
 import uk.ac.york.eng2.products.dto.ProductCreateDTO;
 import uk.ac.york.eng2.products.repository.ProductRepository;
+import uk.ac.york.eng2.products.repository.TagRepository;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@Tag(name="products")
+@io.swagger.v3.oas.annotations.tags.Tag(name="products")
 @Controller(ProductController.PREFIX)
 public class ProductController {
     public final static String PREFIX = "/products";
 
     @Inject
     private ProductRepository productRepository;
+    @Inject
+    private TagRepository tagRepository;
 
 
     @Get
@@ -44,6 +47,44 @@ public class ProductController {
     @Get("/{id}")
     public Product getProduct(@PathVariable long id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    @Get("/{id}/tags")
+    public List<Tag> getProductTags(@PathVariable long id) {
+        return tagRepository.findByProductsId(id);
+    }
+
+    @Transactional
+    @Put("/{id}/tags/{tagId}")
+    public void addProductTag(@PathVariable long id, @PathVariable long tagId) {
+        ProductTag productTag = getProductTag(id, tagId);
+        productTag.product.getTags().add(productTag.tag);
+        productRepository.save(productTag.product);
+    }
+
+    @Transactional
+    @Delete("/{id}/tags/{tagId}")
+    public void removeProductTag(@PathVariable long id, @PathVariable long tagId) {
+        ProductTag productTag = getProductTag(id, tagId);
+        productTag.product.getTags().remove(productTag.tag);
+        productRepository.save(productTag.product);
+    }
+
+    private record ProductTag(Product product, Tag tag) { }
+
+    private ProductTag getProductTag(long productId, long tagId) {
+        @NonNull Optional<Product> oProduct = productRepository.findById(productId);
+        if (oProduct.isEmpty()) {
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, "product not found");
+        }
+        Product product = oProduct.get();
+
+        @NonNull Optional<Tag> oTag = tagRepository.findById(tagId);
+        if (oTag.isEmpty()) {
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, "Tag not found");
+        }
+        Tag tag = oTag.get();
+        return new ProductTag(product, tag);
     }
 
     @Transactional

@@ -2,13 +2,14 @@ package uk.ac.york.eng2.products.dto;
 
 import io.micronaut.serde.annotation.Serdeable;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Serdeable
 public class OrdersByDayCreateDTO {
     private Long productId;
     private String productName;
-    private Date day;
+    private LocalDate day;
     private int count;
 
     public Long getProductId() {
@@ -27,11 +28,11 @@ public class OrdersByDayCreateDTO {
         this.productName = productName;
     }
 
-    public Date getDay() {
+    public LocalDate getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(LocalDate day) {
         this.day = day;
     }
 

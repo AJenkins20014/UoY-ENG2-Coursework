@@ -1,10 +1,11 @@
 package uk.ac.york.eng2.products.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Serdeable
 @Entity
@@ -15,7 +16,7 @@ public class OrdersByDay {
     private Long id;
 
     @Column
-    private Date date;
+    private LocalDate day;
 
     @Column
     private int count;
@@ -32,12 +33,12 @@ public class OrdersByDay {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDate getDay() {
+        return day;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDay(LocalDate day) {
+        this.day = day;
     }
 
     public int getCount() {
@@ -54,5 +55,21 @@ public class OrdersByDay {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

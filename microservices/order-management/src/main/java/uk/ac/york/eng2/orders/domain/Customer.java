@@ -1,11 +1,7 @@
 package uk.ac.york.eng2.orders.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Serdeable
 @Entity

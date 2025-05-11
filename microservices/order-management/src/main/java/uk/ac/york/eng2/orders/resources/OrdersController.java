@@ -11,6 +11,8 @@ import jakarta.transaction.Transactional;
 import uk.ac.york.eng2.orders.domain.OrderItem;
 import uk.ac.york.eng2.orders.domain.Orders;
 import uk.ac.york.eng2.orders.dto.OrdersCreateDTO;
+import uk.ac.york.eng2.orders.events.OrdersCreated;
+import uk.ac.york.eng2.orders.events.OrdersProducer;
 import uk.ac.york.eng2.orders.repository.CustomerRepository;
 import uk.ac.york.eng2.orders.repository.OrderItemRepository;
 import uk.ac.york.eng2.orders.repository.OrdersRepository;
@@ -18,9 +20,8 @@ import uk.ac.york.eng2.orders.repository.OrdersRepository;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.Instant;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Tag(name="orders")
 @Controller(OrdersController.PREFIX)
@@ -36,6 +37,9 @@ public class OrdersController {
     @Inject
     private CustomerRepository customerRepository;
 
+    @Inject
+    private OrdersProducer ordersProducer;
+
 
     @Get
     public List<Orders> getOrders() {
@@ -44,17 +48,41 @@ public class OrdersController {
 
     @Post
     public HttpResponse<Void> createOrders(@Body OrdersCreateDTO dto){
+        // ProductPricingResult prices = pricingGateway.priceOrder(dto.getProductQuantities());
+
+        // Create order
         Orders orders = new Orders();
-        orders.setDateCreated(Date.from(Instant.now()));
+        orders.setDateCreated(LocalDate.now());
         orders.setAddress(dto.getAddress());
         orders.setPaid(dto.isPaid());
         orders.setDelivered(dto.isDelivered());
 
+        orders.setCustomer(customerRepository.findById(dto.getCustomerId()).orElseThrow(() ->
+                        new HttpStatusException(HttpStatus.NOT_FOUND, "Customer not found")
+                ));
+
+        //orders.setTotalAmount(prices.getTotalPrice());
         orders.setTotalAmount(BigDecimal.ZERO);
 
-        orders.setCustomer(customerRepository.findById(dto.getCustomerId()).orElse(null));
-
         orders = ordersRepository.save(orders);
+
+        // Populate order
+        HashMap<Long, Integer> orderItems = new HashMap<>();
+        for (Map.Entry<Long, Integer> entry : dto.getOrderItems().entrySet()) {
+            OrderItem item = new OrderItem();
+            item.setProductId(entry.getKey());
+            item.setQuantity(entry.getValue());
+            item.setOrder(orders);
+
+            //item.setUnitPrice(prices.getUnitPrices().get(productId));
+            item.setUnitPrice(BigDecimal.ZERO);
+
+            orderItems.put(entry.getKey(), entry.getValue());
+
+            orderItemRepository.save(item);
+        }
+
+        ordersProducer.orderCreated(new OrdersCreated(orders.getDateCreated(), orderItems));
 
         return HttpResponse.created(URI.create(PREFIX + "/" + orders.getId()));
     }
@@ -76,15 +104,40 @@ public class OrdersController {
         if (oOrders.isEmpty()) {
             throw new HttpStatusException(HttpStatus.NOT_FOUND, "Order not found");
         }
+
+        // ProductPricingResult prices = pricingGateway.priceOrder(dto.getProductQuantities());
+
         Orders orders = oOrders.get();
-        orders.setDateCreated(Date.from(Instant.now()));
         orders.setAddress(dto.getAddress());
         orders.setPaid(dto.isPaid());
         orders.setDelivered(dto.isDelivered());
 
-        orders.setCustomer(customerRepository.findById(dto.getCustomerId()).orElse(null));
+        orders.setCustomer(customerRepository.findById(dto.getCustomerId()).orElseThrow(() ->
+                new HttpStatusException(HttpStatus.NOT_FOUND, "Customer not found")
+        ));
 
-        ordersRepository.save(orders);
+        //orders.setTotalAmount(prices.getTotalPrice());
+        orders.setTotalAmount(BigDecimal.ZERO);
+
+        orders = ordersRepository.save(orders);
+
+        // Populate order
+        HashMap<Long, Integer> orderItems = new HashMap<>();
+        for (Map.Entry<Long, Integer> entry : dto.getOrderItems().entrySet()) {
+            OrderItem item = new OrderItem();
+            item.setProductId(entry.getKey());
+            item.setQuantity(entry.getValue());
+            item.setOrder(orders);
+
+            //item.setUnitPrice(prices.getUnitPrices().get(productId));
+            item.setUnitPrice(BigDecimal.ZERO);
+
+            orderItems.put(entry.getKey(), entry.getValue());
+
+            orderItemRepository.save(item);
+        }
+
+        ordersProducer.orderCreated(new OrdersCreated(orders.getDateCreated(), orderItems));
     }
 
     @Delete("/{id}")
