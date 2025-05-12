@@ -25,7 +25,7 @@ public interface OrdersByDayClient {
     OrdersByDay getOrdersByDay(@PathVariable long id);
 
     @Get("/day/{day}")
-    List<OrdersByDay> getByProduct(@PathVariable LocalDate day);
+    List<OrdersByDay> getByDay(@PathVariable LocalDate day);
 
     @Get("/product/{productId}")
     List<OrdersByDay> getByProduct(@PathVariable long productId);

@@ -1,6 +1,5 @@
 package uk.ac.york.eng2.products.resources;
 
-import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
@@ -52,7 +51,7 @@ public class OrdersByDayController {
     }
 
     @Get("/day/{day}")
-    public List<OrdersByDay> getByProduct(@PathVariable LocalDate day) {
+    public List<OrdersByDay> getByDay(@PathVariable LocalDate day) {
         return ordersByDayRepository.findByDay(day);
     }
 

@@ -1,6 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.4.4"
+    id("io.micronaut.aot") version "4.4.4"
     id('io.micronaut.openapi') version '4.4.4'
 }
 
@@ -20,6 +21,8 @@ dependencies {
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("jakarta.validation:jakarta.validation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
+    testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("org.awaitility:awaitility:4.3.0")
 }
 
 application {
@@ -39,8 +42,31 @@ micronaut {
         incremental(true)
         annotations("uk.ac.york.eng2.integration.*")
     }
+    aot {
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+        replaceLogbackXml = true
+    }
     openapi {
-        // add OpenAPI configuration here
+        client("pm", file("src/main/openapi/product-management-0.0.yml")) {
+            apiPackageName = "uk.ac.york.eng2.products.api"
+            modelPackageName = "uk.ac.york.eng2.products.model"
+            clientId = "pm"
+            useReactive = false
+            alwaysUseGenerateHttpResponse = true
+        }
+        client("om", file("src/main/openapi/order-management-0.0.yml")) {
+            apiPackageName = "uk.ac.york.eng2.orders.api"
+            modelPackageName = "uk.ac.york.eng2.orders.model"
+            clientId = "om"
+            useReactive = false
+            alwaysUseGenerateHttpResponse = true
+        }
     }
 }
 

@@ -111,10 +111,10 @@ public class OrdersByDayControllerTest {
 
         long id = createOrdersByDay(dto);
 
-        assertEquals(1, ordersByDayClient.getByProduct(LocalDate.now()).size());
-        assertEquals(id, ordersByDayClient.getByProduct(LocalDate.now()).get(0).getId());
-        assertEquals(LocalDate.now(), ordersByDayClient.getByProduct(LocalDate.now()).get(0).getDay());
-        assertEquals(3, ordersByDayClient.getByProduct(LocalDate.now()).get(0).getCount());
+        assertEquals(1, ordersByDayClient.getByDay(LocalDate.now()).size());
+        assertEquals(id, ordersByDayClient.getByDay(LocalDate.now()).get(0).getId());
+        assertEquals(LocalDate.now(), ordersByDayClient.getByDay(LocalDate.now()).get(0).getDay());
+        assertEquals(3, ordersByDayClient.getByDay(LocalDate.now()).get(0).getCount());
     }
 
     @Test
