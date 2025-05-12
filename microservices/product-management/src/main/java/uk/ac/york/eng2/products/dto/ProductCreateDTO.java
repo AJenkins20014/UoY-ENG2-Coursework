@@ -9,6 +9,13 @@ public class ProductCreateDTO {
     private String name;
     private BigDecimal unitPrice;
 
+    public ProductCreateDTO() {}
+
+    public ProductCreateDTO(String name, BigDecimal price) {
+        setName(name);
+        setUnitPrice(price);
+    }
+
     public String getName() {
         return name;
     }

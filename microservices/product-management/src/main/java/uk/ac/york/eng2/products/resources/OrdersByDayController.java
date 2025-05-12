@@ -1,12 +1,17 @@
 package uk.ac.york.eng2.products.resources;
 
+import io.micronaut.http.HttpHeaders;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
 import jakarta.inject.Inject;
 import uk.ac.york.eng2.products.domain.OrdersByDay;
+import uk.ac.york.eng2.products.dto.OrdersByDayCreateDTO;
 import uk.ac.york.eng2.products.repository.OrdersByDayRepository;
+import uk.ac.york.eng2.products.repository.ProductRepository;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,10 +23,27 @@ public class OrdersByDayController {
     @Inject
     private OrdersByDayRepository ordersByDayRepository;
 
+    @Inject
+    private ProductRepository productRepository;
+
 
     @Get
     public List<OrdersByDay> getOrdersByDays() {
         return ordersByDayRepository.findAll();
+    }
+
+    @Post
+    public HttpResponse<Void> createOrdersByDay(OrdersByDayCreateDTO dto) {
+        OrdersByDay ordersByDay = new OrdersByDay();
+        ordersByDay.setDay(dto.getDay());
+        ordersByDay.setProduct(productRepository.findById(dto.getProductId()).orElseThrow(() ->
+                new HttpStatusException(HttpStatus.NOT_FOUND, "Product not found")
+        ));
+        ordersByDay.setCount(dto.getCount());
+
+        ordersByDayRepository.save(ordersByDay);
+
+        return HttpResponse.created(URI.create(PREFIX + "/" + ordersByDay.getId()));
     }
 
     @Get("/id/{id}")

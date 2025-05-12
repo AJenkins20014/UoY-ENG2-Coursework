@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Serdeable
 public class OrdersByDayCreateDTO {
     private Long productId;
-    private String productName;
     private LocalDate day;
     private int count;
 
@@ -18,14 +17,6 @@ public class OrdersByDayCreateDTO {
 
     public void setProductId(Long productId) {
         this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
     }
 
     public LocalDate getDay() {
