@@ -13,6 +13,7 @@ import uk.ac.york.eng2.products.dto.ProductCreateDTO;
 import uk.ac.york.eng2.products.repository.ProductRepository;
 import uk.ac.york.eng2.products.repository.TagRepository;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +55,17 @@ public class ProductController {
         return tagRepository.findByProductsId(id);
     }
 
+    @Get("/{id}/price")
+    public BigDecimal getProductPrice(@PathVariable long id) {
+        Optional<Product> product = productRepository.findById(id);
+        if(product.isPresent()){
+            return product.get().getUnitPrice();
+        }
+        else{
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
+    }
+
     @Transactional
     @Put("/{id}/tags/{tagId}")
     public void addProductTag(@PathVariable long id, @PathVariable long tagId) {
@@ -75,7 +87,7 @@ public class ProductController {
     private ProductTag getProductTag(long productId, long tagId) {
         @NonNull Optional<Product> oProduct = productRepository.findById(productId);
         if (oProduct.isEmpty()) {
-            throw new HttpStatusException(HttpStatus.NOT_FOUND, "product not found");
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, "Product not found");
         }
         Product product = oProduct.get();
 

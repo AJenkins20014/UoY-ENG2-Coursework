@@ -59,6 +59,11 @@ micronaut {
         sharedServer = true
     }
     openapi {
-        // add OpenAPI configuration here
+        client("pm", file("src/main/openapi/product-management-0.0.yml")) {
+            apiPackageName = "uk.ac.york.eng2.products.api"
+            modelPackageName = "uk.ac.york.eng2.products.model"
+            clientId = "pm"
+            useReactive = false
+        }
     }
 }

@@ -47,8 +47,6 @@ public class OrdersConsumer {
                 ordersByDayRepository.update(record);
             } else {
                 OrdersByDay newRecord = new OrdersByDay();
-                newRecord.setProductId(productId);
-                newRecord.setProductName(product.getName());
                 newRecord.setProduct(product);
                 newRecord.setDay(day);
                 newRecord.setCount(quantity);
