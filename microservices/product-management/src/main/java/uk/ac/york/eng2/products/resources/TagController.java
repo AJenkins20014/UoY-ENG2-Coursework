@@ -7,8 +7,10 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import uk.ac.york.eng2.products.domain.Product;
 import uk.ac.york.eng2.products.domain.Tag;
 import uk.ac.york.eng2.products.dto.TagCreateDTO;
+import uk.ac.york.eng2.products.repository.ProductRepository;
 import uk.ac.york.eng2.products.repository.TagRepository;
 
 import java.net.URI;
@@ -22,6 +24,8 @@ public class TagController {
 
     @Inject
     private TagRepository tagRepository;
+    @Inject
+    private ProductRepository productRepository;
 
 
     @Get
@@ -42,6 +46,11 @@ public class TagController {
     @Get("/{id}")
     public Tag getTag(@PathVariable long id) {
         return tagRepository.findById(id).orElse(null);
+    }
+
+    @Get("/products/{id}")
+    public List<Product> getProductsByTag(@PathVariable long id){
+        return productRepository.findByTagsId(id);
     }
 
     @Transactional

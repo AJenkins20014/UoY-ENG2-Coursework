@@ -3,6 +3,7 @@ package uk.ac.york.eng2.products.resources;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.client.annotation.Client;
+import uk.ac.york.eng2.products.domain.Product;
 import uk.ac.york.eng2.products.domain.Tag;
 import uk.ac.york.eng2.products.dto.TagCreateDTO;
 
@@ -19,6 +20,9 @@ public interface TagClient {
 
     @Get("/{id}")
     Tag getTag(@PathVariable long id);
+
+    @Get("/products/{id}")
+    List<Product> getProductsByTag(@PathVariable long id);
 
     @Put("/{id}")
     HttpResponse updateTag(@Body TagCreateDTO dto, @PathVariable long id);

@@ -321,6 +321,27 @@ paths:
       responses:
         "200":
           description: createTag 200 response
+  /tags/products/{id}:
+    get:
+      tags:
+        - tags
+      operationId: getProductsByTag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: getProductsByTag 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
   /tags/{id}:
     get:
       tags:

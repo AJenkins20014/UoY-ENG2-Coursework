@@ -7,11 +7,17 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uk.ac.york.eng2.products.domain.Product;
 import uk.ac.york.eng2.products.domain.Tag;
+import uk.ac.york.eng2.products.dto.ProductCreateDTO;
 import uk.ac.york.eng2.products.dto.TagCreateDTO;
 import uk.ac.york.eng2.products.repository.OrdersByDayRepository;
 import uk.ac.york.eng2.products.repository.ProductRepository;
 import uk.ac.york.eng2.products.repository.TagRepository;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,6 +98,29 @@ public class TagControllerTest {
         tagClient.deleteTag(id);
 
         assertEquals(0, tagClient.getTags().size());
+    }
+
+    @Test
+    public void testGetProductsByTag(){
+        TagCreateDTO dto = new TagCreateDTO();
+        dto.setName("Cinnamon");
+        long id = createTag(dto);
+
+        Product product  = new Product();
+        product.setName("Cinnamon Whirl");
+        product.setUnitPrice(new java.math.BigDecimal("4.99"));
+
+        Set<Tag> tags = new HashSet<>();
+        tags.add(tagClient.getTag(id));
+        product.setTags(tags);
+
+        productRepository.save(product);
+
+
+        List<Product> products = tagClient.getProductsByTag(id);
+        assertEquals(1, products.size());
+        assertEquals(product.getId(), products.get(0).getId());
+        assertEquals("Cinnamon Whirl", products.get(0).getName());
     }
 
     @Test
