@@ -1,5 +1,3 @@
-// Keep the namespace URI as is. Submissions should be anonymous.
-
 @namespace(uri="http://cs.york.ac.uk/eng2/202425/offers", prefix="dis")
 package offers;
 
@@ -7,6 +5,131 @@ package offers;
 //
 // You may want to delete the old generated code in src/ before generating code from the .genmodel.
 
+// Core Model
+
 class Model {
+	val OfferRule[*] offerRules;
+	val Category [*] categories;
+	val Date[*] savedDates;
 	
+	val Product[*] products;
+	val Tag[*] tags;
+}
+
+class Category {
+	attr String name;
+	ref Category#subcategories parent;
+	val Category[*]#parent subcategories;
+}
+
+class Product {
+	attr String name;
+	ref Category category;
+	ref Tag[*] tags;
+}
+
+class Tag {
+	attr String name;
+}
+
+class Date {
+	attr String name;
+	attr Integer year; // Ignore if 0
+	attr Integer month;
+	attr Integer day;
+}
+
+// Offer Rules
+
+class OfferRule{
+	attr String name;
+	val Action[*] actions;
+	val Condition[*] conditions;
+	val RuleTrigger ruleTrigger;
+}
+
+class RuleTrigger{
+	attr TriggerType type;
+	ref OfferRule targetOffer;
+}
+
+enum TriggerType{
+	ALWAYS;
+	IF_MATCH;
+	IF_NOT_MATCH;
+}
+
+// Actions
+
+abstract class Action{
+	attr String name;
+	attr Boolean repeatable = false; // Does this action trigger multiple times if the condition is met multiple times?
+}
+
+abstract class ScopedAction extends Action {
+  attr Integer maxQuantity; // Ignore if 0
+  attr Integer maxUsesPerDay; // Ignore if 0
+  attr Boolean wholeOrder = false;
+  
+  val TargetGroup[*] targets;
+  attr MatchType targetMatchType;
+}
+
+class FlatDiscount extends ScopedAction{
+	attr Double amount;
+}
+
+class PercentageDiscount extends ScopedAction{
+	attr Double percent;
+}
+
+class SetPrice extends ScopedAction{
+	attr Double amount;
+}
+
+class MultiBuyPrice extends ScopedAction{
+	attr Integer qualifyingQuantity;
+	attr Integer payForQuantity;
+}
+
+class AddFreeProduct extends Action{
+	ref Product product;
+	attr Integer quantity;
+}
+
+// Conditions
+
+abstract class Condition{
+	attr String name;
+}
+
+class RequiresTarget extends Condition{
+	val TargetGroup[*] targets;
+  	attr MatchType targetMatchType;
+	attr Integer minQuantity = 1;
+	attr Integer maxQuantity; // Ignore if 0
+}
+
+class OrderTotal extends Condition {
+	attr Double minTotal;
+	attr Double maxTotal; // Ignore if 0
+}
+
+class OnDate extends Condition {
+	ref Date startDate;
+	ref Date endDate; // Inclusive: If startDate = endDate, offer lasts for that day only.
+}
+
+// Utility
+
+class TargetGroup {
+  attr MatchType matchType; // ALL = AND, ANY = OR
+  ref Product[*] products;
+  ref Tag[*] tags;
+  ref Category[*] categories;
+}
+
+enum MatchType {
+  ALL;
+  ANY;
 }

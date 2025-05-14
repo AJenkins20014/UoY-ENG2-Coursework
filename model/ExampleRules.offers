@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dis:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dis="http://cs.york.ac.uk/eng2/202425/offers">
+  <offerRules name="Bakewell Tart Sale">
+    <actions xsi:type="dis:PercentageDiscount" name="10% off first 10 Bakewell Tarts per day" maxUsesPerDay="10" percent="10.0">
+      <targets products="//@products.0"/>
+    </actions>
+    <conditions xsi:type="dis:RequiresTarget" name="Bakewell Tarts">
+      <targets products="//@products.0"/>
+    </conditions>
+  </offerRules>
+  <offerRules name="Large Pizza Bundle">
+    <actions xsi:type="dis:SetPrice" name="£10 for 2 large pizzas" repeatable="true" maxQuantity="2" amount="10.0">
+      <targets tags="//@tags.0 //@tags.1"/>
+    </actions>
+    <actions xsi:type="dis:SetPrice" name="1 free large ice-cream" repeatable="true" maxQuantity="1" amount="0.0">
+      <targets tags="//@tags.2 //@tags.0"/>
+    </actions>
+    <conditions xsi:type="dis:RequiresTarget" name="2 large pizzas">
+      <targets tags="//@tags.0 //@tags.1"/>
+    </conditions>
+  </offerRules>
+  <offerRules name="2-for-1 Pizza Deal">
+    <actions xsi:type="dis:MultiBuyPrice" name="Pizza 2-for-1" repeatable="true" qualifyingQuantity="2" payForQuantity="1">
+      <targets tags="//@tags.1"/>
+    </actions>
+    <conditions xsi:type="dis:RequiresTarget" name="2 pizzas">
+      <targets tags="//@tags.1"/>
+    </conditions>
+    <ruleTrigger type="IF_NOT_MATCH" targetOffer="//@offerRules.1"/>
+  </offerRules>
+  <offerRules name="Christmas Day Sale">
+    <actions xsi:type="dis:PercentageDiscount" name="10% off order" wholeOrder="true" targetMatchType="ANY" percent="10.0"/>
+    <conditions xsi:type="dis:OnDate" name="On Christmas Day" startDate="//@savedDates.0" endDate="//@savedDates.0"/>
+    <conditions xsi:type="dis:OrderTotal" name="Minimum £60" minTotal="60.0"/>
+  </offerRules>
+  <offerRules name="Chocolate Cake Christmas Day Sale">
+    <actions xsi:type="dis:FlatDiscount" name="£5 off" wholeOrder="true" amount="5.0"/>
+    <conditions xsi:type="dis:RequiresTarget" name="Chocolate cake">
+      <targets tags="//@tags.3 //@tags.4"/>
+    </conditions>
+    <conditions xsi:type="dis:OrderTotal" name="Minimum £50" minTotal="50.0"/>
+    <ruleTrigger type="IF_NOT_MATCH" targetOffer="//@offerRules.3"/>
+  </offerRules>
+  <categories name="Sweet">
+    <subcategories name="Cake"/>
+    <subcategories name="Frozen Dessert"/>
+  </categories>
+  <categories name="Savoury">
+    <subcategories name="Pizza"/>
+  </categories>
+  <savedDates name="Christmas Day" month="12" day="25"/>
+  <products name="Bakewell Tart" category="//@categories.0/@subcategories.0" tags="//@tags.3"/>
+  <products name="Large Vanilla Ice-cream" category="//@categories.0/@subcategories.1" tags="//@tags.2 //@tags.0"/>
+  <products name="Large Pepperoni" category="//@categories.1/@subcategories.0" tags="//@tags.0 //@tags.1"/>
+  <tags name="large"/>
+  <tags name="pizza"/>
+  <tags name="ice-cream"/>
+  <tags name="cake"/>
+  <tags name="chocolate"/>
+</dis:Model>
