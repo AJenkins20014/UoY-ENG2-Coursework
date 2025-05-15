@@ -379,7 +379,7 @@ public interface OffersPackage extends EPackage {
 	int OFFER_RULE__CONDITIONS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Rule Trigger</b></em>' containment reference.
+	 * The feature id for the '<em><b>Rule Trigger</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1636,10 +1636,10 @@ public interface OffersPackage extends EPackage {
 	EReference getOfferRule_Conditions();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link uk.ac.york.cs.eng2.offers.OfferRule#getRuleTrigger <em>Rule Trigger</em>}'.
+	 * Returns the meta object for the containment reference list '{@link uk.ac.york.cs.eng2.offers.OfferRule#getRuleTrigger <em>Rule Trigger</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rule Trigger</em>'.
+	 * @return the meta object for the containment reference list '<em>Rule Trigger</em>'.
 	 * @see uk.ac.york.cs.eng2.offers.OfferRule#getRuleTrigger()
 	 * @see #getOfferRule()
 	 * @generated
@@ -2351,7 +2351,7 @@ public interface OffersPackage extends EPackage {
 		EReference OFFER_RULE__CONDITIONS = eINSTANCE.getOfferRule_Conditions();
 
 		/**
-		 * The meta object literal for the '<em><b>Rule Trigger</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Rule Trigger</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

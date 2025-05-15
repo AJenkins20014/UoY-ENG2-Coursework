@@ -82,14 +82,14 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 	protected EList<Condition> conditions;
 
 	/**
-	 * The cached value of the '{@link #getRuleTrigger() <em>Rule Trigger</em>}' containment reference.
+	 * The cached value of the '{@link #getRuleTrigger() <em>Rule Trigger</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRuleTrigger()
 	 * @generated
 	 * @ordered
 	 */
-	protected RuleTrigger ruleTrigger;
+	protected EList<RuleTrigger> ruleTrigger;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -165,43 +165,11 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 	 * @generated
 	 */
 	@Override
-	public RuleTrigger getRuleTrigger() {
+	public EList<RuleTrigger> getRuleTrigger() {
+		if (ruleTrigger == null) {
+			ruleTrigger = new EObjectContainmentEList<RuleTrigger>(RuleTrigger.class, this, OffersPackage.OFFER_RULE__RULE_TRIGGER);
+		}
 		return ruleTrigger;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetRuleTrigger(RuleTrigger newRuleTrigger, NotificationChain msgs) {
-		RuleTrigger oldRuleTrigger = ruleTrigger;
-		ruleTrigger = newRuleTrigger;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OffersPackage.OFFER_RULE__RULE_TRIGGER, oldRuleTrigger, newRuleTrigger);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setRuleTrigger(RuleTrigger newRuleTrigger) {
-		if (newRuleTrigger != ruleTrigger) {
-			NotificationChain msgs = null;
-			if (ruleTrigger != null)
-				msgs = ((InternalEObject)ruleTrigger).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OffersPackage.OFFER_RULE__RULE_TRIGGER, null, msgs);
-			if (newRuleTrigger != null)
-				msgs = ((InternalEObject)newRuleTrigger).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OffersPackage.OFFER_RULE__RULE_TRIGGER, null, msgs);
-			msgs = basicSetRuleTrigger(newRuleTrigger, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OffersPackage.OFFER_RULE__RULE_TRIGGER, newRuleTrigger, newRuleTrigger));
 	}
 
 	/**
@@ -217,7 +185,7 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 			case OffersPackage.OFFER_RULE__CONDITIONS:
 				return ((InternalEList<?>)getConditions()).basicRemove(otherEnd, msgs);
 			case OffersPackage.OFFER_RULE__RULE_TRIGGER:
-				return basicSetRuleTrigger(null, msgs);
+				return ((InternalEList<?>)getRuleTrigger()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -263,7 +231,8 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 				getConditions().addAll((Collection<? extends Condition>)newValue);
 				return;
 			case OffersPackage.OFFER_RULE__RULE_TRIGGER:
-				setRuleTrigger((RuleTrigger)newValue);
+				getRuleTrigger().clear();
+				getRuleTrigger().addAll((Collection<? extends RuleTrigger>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -287,7 +256,7 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 				getConditions().clear();
 				return;
 			case OffersPackage.OFFER_RULE__RULE_TRIGGER:
-				setRuleTrigger((RuleTrigger)null);
+				getRuleTrigger().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -308,7 +277,7 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 			case OffersPackage.OFFER_RULE__CONDITIONS:
 				return conditions != null && !conditions.isEmpty();
 			case OffersPackage.OFFER_RULE__RULE_TRIGGER:
-				return ruleTrigger != null;
+				return ruleTrigger != null && !ruleTrigger.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

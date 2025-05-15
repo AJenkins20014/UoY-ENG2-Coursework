@@ -40,8 +40,8 @@
         eType="#//Action" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
         eType="#//Condition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleTrigger" eType="#//RuleTrigger"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleTrigger" upperBound="-1"
+        eType="#//RuleTrigger" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RuleTrigger">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//TriggerType"/>

@@ -1,17 +1,10 @@
 @namespace(uri="http://cs.york.ac.uk/eng2/202425/offers", prefix="dis")
 package offers;
 
-// Placeholder class to generate some code - replace from here on with your metamodel.
-//
-// You may want to delete the old generated code in src/ before generating code from the .genmodel.
-
-// Core Model
-
 class Model {
 	val OfferRule[*] offerRules;
-	val Category [*] categories;
+	val Category[*] categories;
 	val Date[*] savedDates;
-	
 	val Product[*] products;
 	val Tag[*] tags;
 }
@@ -34,102 +27,94 @@ class Tag {
 
 class Date {
 	attr String name;
-	attr Integer year; // Ignore if 0
+	attr Integer year;
 	attr Integer month;
 	attr Integer day;
 }
 
-// Offer Rules
-
-class OfferRule{
+class OfferRule {
 	attr String name;
 	val Action[*] actions;
 	val Condition[*] conditions;
-	val RuleTrigger ruleTrigger;
+	val RuleTrigger[*] ruleTrigger;
 }
 
-class RuleTrigger{
+class RuleTrigger {
 	attr TriggerType type;
 	ref OfferRule targetOffer;
 }
 
-enum TriggerType{
-	ALWAYS;
-	IF_MATCH;
-	IF_NOT_MATCH;
+enum TriggerType {
+	ALWAYS = 0;
+	IF_MATCH = 1;
+	IF_NOT_MATCH = 2;
 }
 
-// Actions
-
-abstract class Action{
+abstract class Action {
 	attr String name;
-	attr Boolean repeatable = false; // Does this action trigger multiple times if the condition is met multiple times?
+	attr Boolean repeatable = "false";
 }
 
 abstract class ScopedAction extends Action {
-  attr Integer maxQuantity; // Ignore if 0
-  attr Integer maxUsesPerDay; // Ignore if 0
-  attr Boolean wholeOrder = false;
-  
-  val TargetGroup[*] targets;
-  attr MatchType targetMatchType;
+	attr Integer maxQuantity;
+	attr Integer maxUsesPerDay;
+	attr Boolean wholeOrder = "false";
+	val TargetGroup[*] targets;
+	attr MatchType targetMatchType;
 }
 
-class FlatDiscount extends ScopedAction{
+class FlatDiscount extends ScopedAction {
 	attr Double amount;
 }
 
-class PercentageDiscount extends ScopedAction{
+class PercentageDiscount extends ScopedAction {
 	attr Double percent;
 }
 
-class SetPrice extends ScopedAction{
+class SetPrice extends ScopedAction {
 	attr Double amount;
 }
 
-class MultiBuyPrice extends ScopedAction{
+class MultiBuyPrice extends ScopedAction {
 	attr Integer qualifyingQuantity;
 	attr Integer payForQuantity;
 }
 
-class AddFreeProduct extends Action{
+class AddFreeProduct extends Action {
 	ref Product product;
 	attr Integer quantity;
 }
 
-// Conditions
-
-abstract class Condition{
+abstract class Condition {
 	attr String name;
 }
 
-class RequiresTarget extends Condition{
+class RequiresTarget extends Condition {
 	val TargetGroup[*] targets;
-  	attr MatchType targetMatchType;
-	attr Integer minQuantity = 1;
-	attr Integer maxQuantity; // Ignore if 0
+	attr MatchType targetMatchType;
+	attr Integer minQuantity = "1";
+	attr Integer maxQuantity;
 }
 
 class OrderTotal extends Condition {
 	attr Double minTotal;
-	attr Double maxTotal; // Ignore if 0
+	attr Double maxTotal;
 }
 
 class OnDate extends Condition {
 	ref Date startDate;
-	ref Date endDate; // Inclusive: If startDate = endDate, offer lasts for that day only.
+	ref Date endDate;
 }
 
-// Utility
-
 class TargetGroup {
-  attr MatchType matchType; // ALL = AND, ANY = OR
-  ref Product[*] products;
-  ref Tag[*] tags;
-  ref Category[*] categories;
+	attr MatchType matchType;
+	ref Product[*] products;
+	ref Tag[*] tags;
+	ref Category[*] categories;
 }
 
 enum MatchType {
-  ALL;
-  ANY;
+	ALL = 0;
+	ANY = 1;
 }
+

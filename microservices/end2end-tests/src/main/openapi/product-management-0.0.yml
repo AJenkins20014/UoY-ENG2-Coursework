@@ -160,6 +160,28 @@ paths:
       responses:
         "200":
           description: createProduct 200 response
+  /products/orderPrice:
+    post:
+      tags:
+        - products
+      operationId: priceOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: integer
+                format: int32
+        required: true
+      responses:
+        "200":
+          description: priceOrder 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
   /products/{id}:
     get:
       tags:
@@ -213,25 +235,6 @@ paths:
       responses:
         "200":
           description: deleteProduct 200 response
-  /products/{id}/price:
-    get:
-      tags:
-        - products
-      operationId: getProductPrice
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: getProductPrice 200 response
-          content:
-            application/json:
-              schema:
-                type: number
   /products/{id}/tags:
     get:
       tags:

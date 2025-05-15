@@ -73,25 +73,15 @@ public interface OfferRule extends EObject {
 	EList<Condition> getConditions();
 
 	/**
-	 * Returns the value of the '<em><b>Rule Trigger</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Rule Trigger</b></em>' containment reference list.
+	 * The list contents are of type {@link uk.ac.york.cs.eng2.offers.RuleTrigger}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Rule Trigger</em>' containment reference.
-	 * @see #setRuleTrigger(RuleTrigger)
+	 * @return the value of the '<em>Rule Trigger</em>' containment reference list.
 	 * @see uk.ac.york.cs.eng2.offers.OffersPackage#getOfferRule_RuleTrigger()
 	 * @model containment="true"
 	 * @generated
 	 */
-	RuleTrigger getRuleTrigger();
-
-	/**
-	 * Sets the value of the '{@link uk.ac.york.cs.eng2.offers.OfferRule#getRuleTrigger <em>Rule Trigger</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Rule Trigger</em>' containment reference.
-	 * @see #getRuleTrigger()
-	 * @generated
-	 */
-	void setRuleTrigger(RuleTrigger value);
+	EList<RuleTrigger> getRuleTrigger();
 
 } // OfferRule

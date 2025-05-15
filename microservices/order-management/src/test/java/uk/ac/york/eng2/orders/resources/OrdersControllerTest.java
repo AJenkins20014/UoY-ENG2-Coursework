@@ -11,14 +11,15 @@ import org.junit.jupiter.api.Test;
 import uk.ac.york.eng2.orders.domain.Customer;
 import uk.ac.york.eng2.orders.domain.Orders;
 import uk.ac.york.eng2.orders.dto.OrdersCreateDTO;
+import uk.ac.york.eng2.orders.gateways.OrderPriceResponse;
 import uk.ac.york.eng2.orders.gateways.PMProductPricingGateway;
-import uk.ac.york.eng2.orders.gateways.ProductPricingInfo;
 import uk.ac.york.eng2.orders.repository.CustomerRepository;
 import uk.ac.york.eng2.orders.repository.OrderItemRepository;
 import uk.ac.york.eng2.orders.repository.OrdersRepository;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -180,8 +181,25 @@ public class OrdersControllerTest {
     PMProductPricingGateway mockPricingGateway() {
         PMProductPricingGateway mock = mock(PMProductPricingGateway.class);
 
-        when(mock.getProductPrice(1L)).thenReturn(Optional.of(new ProductPricingInfo(new BigDecimal("5.00"))));
-        when(mock.getProductPrice(2L)).thenReturn(Optional.of(new ProductPricingInfo(new BigDecimal("10.00"))));
+        Map<Long, BigDecimal> unitPrices = Map.of(
+                1L, new BigDecimal("5.00"),
+                2L, new BigDecimal("10.00")
+        );
+
+        when(mock.getOrderPrice(any())).thenAnswer(invocation -> {
+            Map<Long, Integer> orderItems = invocation.getArgument(0);
+            Map<Long, BigDecimal> linePrices = new HashMap<>();
+            BigDecimal total = BigDecimal.ZERO;
+
+            for (Map.Entry<Long, Integer> entry : orderItems.entrySet()) {
+                BigDecimal unit = unitPrices.getOrDefault(entry.getKey(), BigDecimal.ZERO);
+                BigDecimal line = unit.multiply(BigDecimal.valueOf(entry.getValue()));
+                linePrices.put(entry.getKey(), line);
+                total = total.add(line);
+            }
+
+            return Optional.of(new OrderPriceResponse(linePrices, total));
+        });
 
         return mock;
     }

@@ -1,3 +1,86 @@
-// Write your EVL validation rules here.
-//
-// To run them, right-click on the Sirius diagram background and select "Validate diagram".
+// Product names must be unique
+context Product {
+	constraint UniqueName{
+		check: Product.all.select(p | p.name = self.name).size() == 1
+		message: "Product " + self.name + " must have an unique name."
+		fix {
+			title: "Change product name."
+			do {
+				self.name = self.name + " 1";
+			}
+		}
+	}
+}
+
+// Percentage-based discounts must be between 0 and 100.
+context PercentageDiscount {
+	constraint ValidPercentage {
+		check: self.percent >= 0 and self.percent <= 100
+		message: "PercentageDiscount " + self.name + " must be between 0 and 100."
+	}
+}
+
+// Exactly one initial rule
+context OfferRule {
+	constraint SingleInitialRule {
+	    check: OfferRule.all.select(r | r.incomingTriggers().isEmpty()).size() == 1
+	    message: "There must be exactly one initial rule with no incoming rule triggers."
+	}
+}
+
+// Each rule can only trigger at most one other rule for a given situation (“if match”, “if not match”, or “always”).
+context OfferRule {
+	constraint MaxOnePerTriggerType {
+		check:
+			self.outgoingTriggers().select(t | t.type = TriggerType#ALWAYS).size() <= 1 and
+			self.outgoingTriggers().select(t | t.type = TriggerType#IF_MATCH).size() <= 1 and
+			self.outgoingTriggers().select(t | t.type = TriggerType#IF_NOT_MATCH).size() <= 1
+		message : "OfferRule " + self.name + " triggers more than one rule with the same trigger type."
+	}
+}
+
+// If a rule “always” triggers another rule, it cannot have “if match” nor “if not match” triggers.
+context OfferRule {
+	constraint NoMixedAlways {
+	    check:
+	    	not (self.outgoingTriggers().exists(t | t.type = TriggerType#ALWAYS) and
+	            (self.outgoingTriggers().exists(t | t.type = TriggerType#IF_MATCH) or 
+	            self.outgoingTriggers().exists(t | t.type = TriggerType#IF_NOT_MATCH)))
+	    message: "OfferRule " + self.name + " cannot have an outgoing ALWAYS trigger and an outgoing IF_MATCH / IF_NOT_MATCH trigger."
+	}
+}
+
+// There must not be any direct or indirect dependency cycles between rules.
+context OfferRule {
+	constraint NoCycles {
+	    check: not self.hasCycle(Sequence {})
+	    message: "OfferRule " + self.name + " must not be part of a rule trigger cycle."
+	}
+}
+
+
+// Operations
+operation OfferRule incomingTriggers() : Sequence(RuleTrigger) {
+	return (RuleTrigger.all.select(t | not t.targetOffer.isUndefined() and t.targetOffer == self)).asSequence();
+}
+
+operation OfferRule outgoingTriggers() : Sequence(RuleTrigger) {
+    return self.ruleTrigger.asSequence();
+}
+
+operation OfferRule hasCycle(visited : Sequence(OfferRule)) : Boolean {
+    if (visited.includes(self)) return true;
+
+    var nextTriggers = self.outgoingTriggers();
+    if (nextTriggers.isEmpty()) return false;
+
+    var path = visited.clone();
+    path.add(self);
+
+    return nextTriggers.exists(t | t.targetOffer.hasCycle(path));
+}
+
+
+
+
+

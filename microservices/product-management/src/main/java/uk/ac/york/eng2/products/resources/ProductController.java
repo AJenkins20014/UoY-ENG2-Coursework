@@ -7,6 +7,7 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.flywaydb.core.internal.util.Pair;
 import uk.ac.york.eng2.products.domain.Product;
 import uk.ac.york.eng2.products.domain.Tag;
 import uk.ac.york.eng2.products.dto.ProductCreateDTO;
@@ -15,8 +16,7 @@ import uk.ac.york.eng2.products.repository.TagRepository;
 
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @io.swagger.v3.oas.annotations.tags.Tag(name="products")
 @Controller(ProductController.PREFIX)
@@ -55,9 +55,25 @@ public class ProductController {
         return tagRepository.findByProductsId(id);
     }
 
-    @Get("/{id}/price")
-    public BigDecimal getProductPrice(@PathVariable long id) {
-        Optional<Product> product = productRepository.findById(id);
+    @Post("/orderPrice")
+    public Map<String,Object> priceOrder(@Body Map<Long,Integer> orderItems) {
+        Map<Long, BigDecimal> itemPrices = new HashMap<>();
+        BigDecimal totalPrice = new BigDecimal(0);
+
+        for (Map.Entry<Long, Integer> entry : orderItems.entrySet()) {
+            Long productId = entry.getKey();
+            int quantity = entry.getValue();
+
+            BigDecimal orderItemPrice = getProductPrice(productId).multiply(new BigDecimal(quantity));
+            itemPrices.put(productId, orderItemPrice);
+            totalPrice = totalPrice.add(orderItemPrice);
+        }
+
+        return Map.of("items", itemPrices, "total", totalPrice);
+    }
+
+    private BigDecimal getProductPrice(long productId) {
+        Optional<Product> product = productRepository.findById(productId);
         if(product.isPresent()){
             return product.get().getUnitPrice();
         }
