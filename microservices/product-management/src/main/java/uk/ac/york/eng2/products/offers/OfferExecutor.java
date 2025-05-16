@@ -8,15 +8,16 @@ import uk.ac.york.eng2.products.repository.TagRepository;
 @Singleton
 public class OfferExecutor {
 
-	@Inject
-	ProductRepository productRepository;
+	private final ProductRepository productRepository;
 
-	@Inject
-	TagRepository tagRepository;
+	private final TagRepository tagRepository;
 
 	private final java.util.Map<String, Offer> offers = new java.util.HashMap<>();
 
-	public OfferExecutor(){
+	@Inject
+	public OfferExecutor(ProductRepository productRepository, TagRepository tagRepository){
+		this.productRepository = productRepository;
+		this.tagRepository = tagRepository;
 
 		// build every offer rule in the model
 		offers.put("Bakewell Tart Sale", new BakewellTartSale(productRepository, tagRepository));

@@ -57,7 +57,6 @@ public class BakewellTartSale implements Offer {
 			usesToday++;
 		}
 
-		
 		return context;
 	}
 

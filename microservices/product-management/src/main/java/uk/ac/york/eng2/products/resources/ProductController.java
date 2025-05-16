@@ -31,6 +31,9 @@ public class ProductController {
     @Inject
     private TagRepository tagRepository;
 
+    @Inject
+    private OfferExecutor offerExecutor;
+
 
     @Get
     public List<Product> getProducts() {
@@ -74,7 +77,7 @@ public class ProductController {
 
         OrderContext context = new OrderContext(orderItems, itemPrices, totalPrice, LocalDate.now());
 
-        OrderContext offersApplied = new OfferExecutor().applyOffers(context);
+        OrderContext offersApplied = offerExecutor.applyOffers(context);
 
         return Map.of("items", offersApplied.itemPrices, "total", offersApplied.totalPrice);
     }

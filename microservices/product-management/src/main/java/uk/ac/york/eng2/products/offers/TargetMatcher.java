@@ -9,133 +9,91 @@ import java.util.*;
 
 public class TargetMatcher {
 
-    public static Set<Long> getMatchingProductIds(OrderContext context, TargetGroup targetGroup,
-                                                  ProductRepository productRepo, TagRepository tagRepo) {
-        Set<Long> matching = new HashSet<>();
-
-        for (Long productId : context.orderItems.keySet()) {
-            boolean matchesProduct = false;
-            boolean matchesTag = false;
-
-            // Check by product name
-            if (targetGroup.getProducts() != null && !targetGroup.getProducts().isEmpty()) {
-                Optional<Product> productOpt = productRepo.findById(productId);
-                if (productOpt.isPresent()) {
-                    String productName = productOpt.get().getName();
-                    if (targetGroup.getProducts().contains(productName)) {
-                        matchesProduct = true;
-                    }
-                }
-            }
-
-            // Check by tag name
-            if (targetGroup.getTags() != null && !targetGroup.getTags().isEmpty()) {
-                List<Tag> tags = tagRepo.findByProductsId(productId);
-                for (Tag t : tags) {
-                    if (targetGroup.getTags().contains(t.getName())) {
-                        matchesTag = true;
-                        break;
-                    }
-                }
-            }
-
-            // Categories not implemented
-
-            boolean matched = false;
-            if (targetGroup.getMatchType() == TargetGroup.MatchType.ANY) {
-                matched = matchesProduct || matchesTag;
-            } else if (targetGroup.getMatchType() == TargetGroup.MatchType.ALL) {
-                matched = (targetGroup.getProducts().isEmpty() || matchesProduct)
-                        && (targetGroup.getTags().isEmpty() || matchesTag);
-            }
-
-            if (matched) {
-                matching.add(productId);
-            }
-        }
-
-        return matching;
+    /* ──────────────────────────────────────────────────────────────
+       Public helpers
+       ──────────────────────────────────────────────────────────── */
+    public static Set<Long> getMatchingProductIds(OrderContext ctx,
+                                                  TargetGroup tg,
+                                                  ProductRepository productRepo,
+                                                  TagRepository tagRepo) {
+        return internalMatch(ctx.orderItems, tg, productRepo, tagRepo);
     }
 
-    public static Set<Long> getMatchingProductIdsFrom(Map<Long, Integer> items, TargetGroup targetGroup,
-                                                      ProductRepository productRepo, TagRepository tagRepo) {
-        Set<Long> matching = new HashSet<>();
-
-        for (Long productId : items.keySet()) {
-            boolean matchesProduct = false;
-            boolean matchesTag = false;
-
-            if (targetGroup.getProducts() != null && !targetGroup.getProducts().isEmpty()) {
-                Optional<Product> productOpt = productRepo.findById(productId);
-                if (productOpt.isPresent()) {
-                    String productName = productOpt.get().getName();
-                    if (targetGroup.getProducts().contains(productName)) {
-                        matchesProduct = true;
-                    }
-                }
-            }
-
-            if (targetGroup.getTags() != null && !targetGroup.getTags().isEmpty()) {
-                List<Tag> tags = tagRepo.findByProductsId(productId);
-                for (Tag t : tags) {
-                    if (targetGroup.getTags().contains(t.getName())) {
-                        matchesTag = true;
-                        break;
-                    }
-                }
-            }
-
-            // Categories not implemented
-
-            boolean matched = false;
-            if (targetGroup.getMatchType() == TargetGroup.MatchType.ANY) {
-                matched = matchesProduct || matchesTag;
-            } else if (targetGroup.getMatchType() == TargetGroup.MatchType.ALL) {
-                matched = (targetGroup.getProducts().isEmpty() || matchesProduct)
-                        && (targetGroup.getTags().isEmpty() || matchesTag);
-            }
-
-            if (matched) {
-                matching.add(productId);
-            }
-        }
-
-        return matching;
+    public static Set<Long> getMatchingProductIdsFrom(Map<Long, Integer> map,
+                                                      TargetGroup tg,
+                                                      ProductRepository productRepo,
+                                                      TagRepository tagRepo) {
+        return internalMatch(map, tg, productRepo, tagRepo);
     }
 
-    public static int getQuantityForMap(Map<Long, Integer> items, Set<Long> productIds) {
-        int total = 0;
-        for (Long id : productIds) {
-            total += items.getOrDefault(id, 0);
-        }
-        return total;
+    public static int getQuantityForMap(Map<Long,Integer> map, Set<Long> ids) {
+        return ids.stream().mapToInt(id -> map.getOrDefault(id, 0)).sum();
     }
 
-
-    public static int getQuantityFor(OrderContext context, Set<Long> productIds) {
-        int total = 0;
-        for (Long id : productIds) {
-            total += context.orderItems.getOrDefault(id, 0);
-        }
-        return total;
+    public static int getQuantityFor(OrderContext ctx, Set<Long> ids) {
+        return getQuantityForMap(ctx.orderItems, ids);
     }
 
-    public static Set<Long> getMatchingProductIdsByMatchType(OrderContext context, List<TargetGroup> targets, TargetGroup.MatchType matchType,
-                                                             ProductRepository productRepo, TagRepository tagRepo) {
-        Set<Long> result = new HashSet<>();
-        if (matchType == TargetGroup.MatchType.ANY) {
-            for (TargetGroup tg : targets) {
-                result.addAll(getMatchingProductIds(context, tg, productRepo, tagRepo));
-            }
-        } else {
-            if (!targets.isEmpty()) {
-                result.addAll(getMatchingProductIds(context, targets.get(0), productRepo, tagRepo));
-                for (int i = 1; i < targets.size(); i++) {
-                    result.retainAll(getMatchingProductIds(context, targets.get(i), productRepo, tagRepo));
-                }
+    /* Combine matches from several TargetGroups */
+    public static Set<Long> getMatchingProductIdsByMatchType(OrderContext ctx,
+                                                             List<TargetGroup> groups,
+                                                             TargetGroup.MatchType overall,
+                                                             ProductRepository pr,
+                                                             TagRepository tr) {
+        if (groups.isEmpty()) return Collections.emptySet();
+        Set<Long> result = internalMatch(ctx.orderItems, groups.get(0), pr, tr);
+        for (int i = 1; i < groups.size(); i++) {
+            if (overall == TargetGroup.MatchType.ANY) {
+                result.addAll(internalMatch(ctx.orderItems, groups.get(i), pr, tr));
+            } else { // ALL
+                result.retainAll(internalMatch(ctx.orderItems, groups.get(i), pr, tr));
             }
         }
         return result;
     }
 
+    /* ──────────────────────────────────────────────────────────────
+       Core logic (shared)
+       ──────────────────────────────────────────────────────────── */
+    private static Set<Long> internalMatch(Map<Long,Integer> items,
+                                           TargetGroup tg,
+                                           ProductRepository pr,
+                                           TagRepository tr) {
+
+        Set<Long> match = new HashSet<>();
+        boolean wantAny = tg.getMatchType() == TargetGroup.MatchType.ANY;
+
+        for (Long pid : items.keySet()) {
+
+            /* ------------ product name check (ALL vs ANY same) ---- */
+            boolean nameMatch = tg.getProducts().isEmpty() ||       // no names required
+                    pr.findById(pid)
+                            .map(Product::getName)
+                            .filter(tg.getProducts()::contains)
+                            .isPresent();
+
+            /* ------------ tag check (respect ALL / ANY) ---------- */
+            boolean tagMatch = tg.getTags().isEmpty();              // empty list ⇒ trivially true
+            if (!tg.getTags().isEmpty()) {
+                List<Tag> productTags = tr.findByProductsId(pid);
+                if (wantAny) {
+                    tagMatch = productTags.stream()
+                            .anyMatch(t -> tg.getTags().contains(t.getName()));
+                } else {
+                    tagMatch = tg.getTags().stream()
+                            .allMatch(req -> productTags.stream()
+                                    .anyMatch(t -> t.getName().equals(req)));
+                }
+            }
+
+            /* ------------ final decision ------------------------- */
+            boolean matched = wantAny ? (nameMatch || tagMatch)
+                    : (nameMatch && tagMatch);
+
+            if (matched) match.add(pid);
+        }
+        return match;
+    }
+
+    private TargetMatcher() {}   // utility class — no instances
 }

@@ -8,8 +8,8 @@ import uk.ac.york.eng2.products.repository.TagRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
-
+import java.util.List;
+import java.util.Set;
 
 public class SetPriceAction {
 
@@ -17,41 +17,41 @@ public class SetPriceAction {
                                      List<TargetGroup> targets, TargetGroup.MatchType matchType,
                                      ProductRepository productRepository, TagRepository tagRepository) {
 
-        BigDecimal newUnitPrice = BigDecimal.valueOf(amount).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal newUnit = BigDecimal.valueOf(amount).setScale(2, RoundingMode.HALF_UP);
 
         if (wholeOrder) {
-            context.totalPrice = newUnitPrice;
+            context.totalPrice = BigDecimal.valueOf(amount);
             return context;
         }
 
+        Set<Long> ids = TargetMatcher.getMatchingProductIdsByMatchType(context, targets, matchType, productRepository, tagRepository);
+        if (ids.isEmpty()) return context;
 
-        Set<Long> matchingIds = TargetMatcher.getMatchingProductIdsByMatchType(context, targets, matchType, productRepository, tagRepository);
+        int unitsLeft = (maxQuantity <= 0) ? Integer.MAX_VALUE : maxQuantity;
 
-        if (matchingIds.isEmpty()) {
-            return context;
-        }
+        for (Long pid : ids) {
+            if (unitsLeft == 0) break;
 
-        int limit = (maxQuantity <= 0) ? matchingIds.size() : maxQuantity;
-        int updatedProducts = 0;
-
-        for (Long pid : matchingIds) {
-            if (updatedProducts >= limit) {
-                break;
-            }
-
-            BigDecimal oldUnit = context.itemPrices.get(pid);
-            if (oldUnit == null) continue;
-
-            // Recalculate order total
             int qty = context.orderItems.getOrDefault(pid, 0);
-            BigDecimal perUnit = oldUnit.subtract(newUnitPrice);
+            if (qty == 0) continue;
 
-            context.totalPrice = context.totalPrice.subtract(perUnit.multiply(BigDecimal.valueOf(qty)));
+            BigDecimal unitPrice = productRepository.findById(pid).get().getUnitPrice().setScale(2);
+            BigDecimal oldLine = context.itemPrices.get(pid);
 
-            // Override unit price
-            context.itemPrices.put(pid, newUnitPrice);
+            int fullPricedUnits = oldLine.divide(unitPrice, 0, RoundingMode.DOWN).intValue();
+            if (fullPricedUnits == 0) continue;
 
-            updatedProducts++;
+            int unitsToAdjust = Math.min(unitsLeft, fullPricedUnits);
+
+            BigDecimal diffPerUnit = unitPrice.subtract(newUnit);
+            BigDecimal lineDiscount = diffPerUnit.multiply(BigDecimal.valueOf(unitsToAdjust));
+
+            // Update totals
+            context.totalPrice = context.totalPrice.subtract(lineDiscount).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal newLine = oldLine.subtract(lineDiscount);
+            context.itemPrices.put(pid, newLine);
+
+            unitsLeft -= unitsToAdjust;
         }
 
         return context;

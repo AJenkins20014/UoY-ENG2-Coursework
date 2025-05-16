@@ -17,8 +17,8 @@ public class PercentageDiscountAction {
                                      List<TargetGroup> targets, TargetGroup.MatchType matchType,
                                      ProductRepository productRepository, TagRepository tagRepository) {
 
-        BigDecimal multiplier = BigDecimal.ONE
-                .subtract(BigDecimal.valueOf(percentage).divide(BigDecimal.valueOf(100d))).setScale(4, RoundingMode.HALF_UP);
+
+        BigDecimal multiplier = BigDecimal.ONE.subtract(BigDecimal.valueOf(percentage).divide(BigDecimal.valueOf(100d))).setScale(4, RoundingMode.HALF_UP);
 
 
         if (wholeOrder) {
@@ -33,27 +33,31 @@ public class PercentageDiscountAction {
             return context;
         }
 
-        int limit = (maxQuantity <= 0) ? matchingIds.size() : maxQuantity;
+        int limit = (maxQuantity <= 0) ? Integer.MAX_VALUE : maxQuantity;
         int discountedProducts = 0;
 
-        for (Long id : matchingIds) {
-            if (discountedProducts >= limit) {
-                break;
+        for (Long pid : matchingIds) {
+            int quantity = context.orderItems.get(pid);
+            for (int i = 0; i < quantity; i++) {
+                if (discountedProducts >= limit) {
+                    break;
+                }
+
+                BigDecimal linePrice = context.itemPrices.get(pid);
+                BigDecimal unitPrice = productRepository.findById(pid).get().getUnitPrice();
+
+                BigDecimal newLinePrice = linePrice.subtract(unitPrice);
+                newLinePrice = newLinePrice.add(unitPrice.multiply(multiplier).setScale(2, RoundingMode.HALF_UP));
+
+                // Update line price
+                context.itemPrices.put(pid, newLinePrice);
+
+                // Update order total
+                context.totalPrice = context.totalPrice.subtract(linePrice);
+                context.totalPrice = context.totalPrice.add(newLinePrice);
+
+                discountedProducts++;
             }
-            BigDecimal oldUnit = context.itemPrices.get(id);
-            if (oldUnit == null) continue;
-
-            BigDecimal newUnit = oldUnit.multiply(multiplier).setScale(2, RoundingMode.HALF_UP);
-
-            // Update item price
-            context.itemPrices.put(id, newUnit);
-
-            // Update order total
-            int qty = context.orderItems.getOrDefault(id, 0);
-            BigDecimal perUnit = oldUnit.subtract(newUnit);
-            context.totalPrice = context.totalPrice.subtract(perUnit.multiply(BigDecimal.valueOf(qty)));
-
-            discountedProducts++;
         }
 
         return context;
