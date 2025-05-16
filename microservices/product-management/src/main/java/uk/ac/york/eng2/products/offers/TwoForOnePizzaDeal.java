@@ -11,13 +11,15 @@ import java.time.LocalDate;
 
 public class TwoForOnePizzaDeal implements Offer {
 
+	private final OfferExecutor offerExecutor;
 	private final ProductRepository productRepository;
 	private final TagRepository tagRepository;
 
 	private LocalDate lastResetDate = LocalDate.now();
 	private int usesToday;
 
-	public TwoForOnePizzaDeal(ProductRepository productRepository, TagRepository tagRepository) {
+	public TwoForOnePizzaDeal(OfferExecutor offerExecutor, ProductRepository productRepository, TagRepository tagRepository) {
+		this.offerExecutor = offerExecutor;
 		this.productRepository = productRepository;
 		this.tagRepository = tagRepository;
 	}
@@ -38,6 +40,7 @@ public class TwoForOnePizzaDeal implements Offer {
 		// Check conditions
 		int highestMatches = 0;
 		int matches = 0;
+		boolean conditionsMet = true;
 		if(withinDailyUses){
 
 			matches = RequiresTargetCondition.isValid(
@@ -45,9 +48,9 @@ public class TwoForOnePizzaDeal implements Offer {
 			List.of(new TargetGroup(List.of(), List.of("pizza"), List.of(), TargetGroup.MatchType.ALL)), TargetGroup.MatchType.ALL, 1, 0, productRepository,
 			tagRepository);
 
+			if (matches < 1) conditionsMet = false;
 			if (matches > highestMatches) highestMatches = matches;
 		}
-		boolean conditionsMet = highestMatches > 0;
 
 		if (conditionsMet){
 
@@ -57,6 +60,13 @@ public class TwoForOnePizzaDeal implements Offer {
 			}
 
 			usesToday++;
+		}
+
+		Offer next = null;
+		next = offerExecutor.getOffer("Christmas Day Sale");
+
+		if (next != null) {
+			return next.apply(context);
 		}
 
 		return context;

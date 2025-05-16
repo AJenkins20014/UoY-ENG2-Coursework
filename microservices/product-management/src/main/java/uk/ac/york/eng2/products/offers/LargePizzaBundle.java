@@ -11,13 +11,15 @@ import java.time.LocalDate;
 
 public class LargePizzaBundle implements Offer {
 
+	private final OfferExecutor offerExecutor;
 	private final ProductRepository productRepository;
 	private final TagRepository tagRepository;
 
 	private LocalDate lastResetDate = LocalDate.now();
 	private int usesToday;
 
-	public LargePizzaBundle(ProductRepository productRepository, TagRepository tagRepository) {
+	public LargePizzaBundle(OfferExecutor offerExecutor, ProductRepository productRepository, TagRepository tagRepository) {
+		this.offerExecutor = offerExecutor;
 		this.productRepository = productRepository;
 		this.tagRepository = tagRepository;
 	}
@@ -38,6 +40,7 @@ public class LargePizzaBundle implements Offer {
 		// Check conditions
 		int highestMatches = 0;
 		int matches = 0;
+		boolean conditionsMet = true;
 		if(withinDailyUses){
 
 			matches = RequiresTargetCondition.isValid(
@@ -45,9 +48,9 @@ public class LargePizzaBundle implements Offer {
 			List.of(new TargetGroup(List.of(), List.of("large", "pizza"), List.of(), TargetGroup.MatchType.ALL)), TargetGroup.MatchType.ALL, 1, 0, productRepository,
 			tagRepository);
 
+			if (matches < 1) conditionsMet = false;
 			if (matches > highestMatches) highestMatches = matches;
 		}
-		boolean conditionsMet = highestMatches > 0;
 
 		if (conditionsMet){
 
@@ -62,6 +65,16 @@ public class LargePizzaBundle implements Offer {
 			}
 
 			usesToday++;
+		}
+
+		Offer next = null;
+		if (conditionsMet) {
+		} else {
+			next = offerExecutor.getOffer("TwoForOne Pizza Deal");
+		}
+
+		if (next != null) {
+			return next.apply(context);
 		}
 
 		return context;

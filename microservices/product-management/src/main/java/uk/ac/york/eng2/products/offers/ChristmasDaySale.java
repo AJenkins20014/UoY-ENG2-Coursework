@@ -11,13 +11,15 @@ import java.time.LocalDate;
 
 public class ChristmasDaySale implements Offer {
 
+	private final OfferExecutor offerExecutor;
 	private final ProductRepository productRepository;
 	private final TagRepository tagRepository;
 
 	private LocalDate lastResetDate = LocalDate.now();
 	private int usesToday;
 
-	public ChristmasDaySale(ProductRepository productRepository, TagRepository tagRepository) {
+	public ChristmasDaySale(OfferExecutor offerExecutor, ProductRepository productRepository, TagRepository tagRepository) {
+		this.offerExecutor = offerExecutor;
 		this.productRepository = productRepository;
 		this.tagRepository = tagRepository;
 	}
@@ -38,18 +40,20 @@ public class ChristmasDaySale implements Offer {
 		// Check conditions
 		int highestMatches = 0;
 		int matches = 0;
+		boolean conditionsMet = true;
 		if(withinDailyUses){
 
 			matches = OnDateCondition.isValid(context, new Date(LocalDate.now().getYear(), 12, 25), new Date(LocalDate.now().getYear(), 12, 25));
 
+			if (matches < 1) conditionsMet = false;
 			if (matches > highestMatches) highestMatches = matches;
 
 			matches = OrderTotalCondition.isValid(
 			context, 60.0, 0);
 
+			if (matches < 1) conditionsMet = false;
 			if (matches > highestMatches) highestMatches = matches;
 		}
-		boolean conditionsMet = highestMatches > 0;
 
 		if (conditionsMet){
 
@@ -57,6 +61,16 @@ public class ChristmasDaySale implements Offer {
 			tagRepository);
 
 			usesToday++;
+		}
+
+		Offer next = null;
+		if (conditionsMet) {
+		} else {
+			next = offerExecutor.getOffer("Chocolate Cake Sale");
+		}
+
+		if (next != null) {
+			return next.apply(context);
 		}
 
 		return context;

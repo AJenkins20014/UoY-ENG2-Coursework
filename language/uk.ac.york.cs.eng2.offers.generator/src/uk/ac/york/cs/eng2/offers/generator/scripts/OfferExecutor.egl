@@ -21,7 +21,7 @@ public class OfferExecutor {
     
     	// build every offer rule in the model
 		[%for (o in m.offerRules){%]
-        	offers.put("[%=o.name%]", new [%=o.name.replaceAll("\\s+","")%](productRepository, tagRepository));
+        	offers.put("[%=o.name%]", new [%=o.name.replaceAll("\\s+","")%](this, productRepository, tagRepository));
 		[%}%]
     
     }
@@ -33,6 +33,11 @@ public class OfferExecutor {
 
 		return initial.apply(context);
 	}
+	
+	public Offer getOffer(String name) {
+		return offers.get(name);
+	}
+	
 }
 
 [%

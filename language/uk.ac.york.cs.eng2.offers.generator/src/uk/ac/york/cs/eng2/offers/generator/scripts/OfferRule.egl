@@ -19,13 +19,16 @@ import java.time.LocalDate;
 
 public class [%=ruleName%] implements Offer {
 
+
+	private final OfferExecutor offerExecutor;
 	private final ProductRepository productRepository;
     private final TagRepository tagRepository;
     
     private LocalDate lastResetDate = LocalDate.now();
     private int usesToday;
 
-	public [%=ruleName%](ProductRepository productRepository, TagRepository tagRepository) {
+	public [%=ruleName%](OfferExecutor offerExecutor, ProductRepository productRepository, TagRepository tagRepository) {
+		this.offerExecutor = offerExecutor;
         this.productRepository = productRepository;
         this.tagRepository = tagRepository;
     }
@@ -48,17 +51,18 @@ public class [%=ruleName%] implements Offer {
 		// Check conditions
 		int highestMatches = 0;
 		int matches = 0;
+		boolean conditionsMet = true;
 		if(withinDailyUses){
 			
 			
 			[%for (c in r.conditions) {%]
 				[%=generateConditionCall(c)%]
 				
+				if (matches < 1) conditionsMet = false;
 				if (matches > highestMatches) highestMatches = matches;
 				
 				[%}%] 
 		}
-		boolean conditionsMet = highestMatches > 0;
 		
 		if (conditionsMet){
 			
@@ -77,7 +81,29 @@ public class [%=ruleName%] implements Offer {
 			usesToday++;
 		}
 		
+		[% var trgAlways = r.ruleTrigger.select(t | t.type == offers::TriggerType#ALWAYS).first(); %]
+		[% var trgIfMatch = r.ruleTrigger.select(t | t.type == offers::TriggerType#IF_MATCH).first(); %]
+		[% var trgIfNot = r.ruleTrigger.select(t | t.type == offers::TriggerType#IF_NOT_MATCH).first(); %]
 		
+        Offer next = null;
+		[% if (trgAlways.isDefined()) { %]
+        next = offerExecutor.getOffer("[%= trgAlways.targetOffer.name %]");
+		[% } else { %]
+        if (conditionsMet) {
+		[% if (trgIfMatch.isDefined()) { %]
+            next = offerExecutor.getOffer("[%= trgIfMatch.targetOffer.name %]");
+		[% } %]
+        } else {
+		[% if (trgIfNot.isDefined()) { %]
+            next = offerExecutor.getOffer("[%= trgIfNot.targetOffer.name %]");
+		[% } %]
+        }
+		[% } %]
+
+
+        if (next != null) {
+            return next.apply(context);
+        }
 		
 		
 
