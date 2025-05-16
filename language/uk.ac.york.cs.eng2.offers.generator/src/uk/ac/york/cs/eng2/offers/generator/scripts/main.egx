@@ -1,3 +1,26 @@
-/*
- * Write your EGX rules here: template paths should be relative to the .egx folder.
- */
+rule Model2OfferExecutor
+	transform m : offers::Model {
+	
+	template : "OfferExecutor.egl"
+	
+	parameters : Map{}
+	
+	target : "src/main/java/uk/ac/york/eng2/products/offers/OfferExecutor.java"
+	
+}
+
+rule OfferRule2Java
+	transform r : offers::OfferRule {
+
+    template : "OfferRule.egl"
+
+    parameters : Map{
+        "model" = r.eContainer()
+    }
+
+    target : r.getJavaFileName()
+}
+
+operation offers::OfferRule getJavaFileName() {
+    return "src/main/java/uk/ac/york/eng2/products/offers/" + self.name.replaceAll("\\s+","") + ".java";
+}

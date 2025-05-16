@@ -1,0 +1,48 @@
+[%
+operation generateTargetGroupList(targets) : String {
+    var result = "List.of(";
+    var first = true;
+
+    for (t in targets) {
+        if (not first) {
+            result = result + ", ";
+        }
+        result = result + generateTargetGroup(t);
+        first = false;
+    }
+
+    result = result + ")";
+    return result;
+}
+
+operation generateTargetGroup(t : offers::TargetGroup) : String {
+    var productList = "";
+    var tagList = "";
+    var categoryList = "";
+
+    var first = true;
+    for (p in t.products) {
+        if (not first) { productList = productList + ", "; }
+        productList = productList + "\"" + p.name + "\"";
+        first = false;
+    }
+
+    first = true;
+    for (tg in t.tags) {
+        if (not first) { tagList = tagList + ", "; }
+        tagList = tagList + "\"" + tg.name + "\"";
+        first = false;
+    }
+
+    first = true;
+    for (c in t.categories) {
+        if (not first) { categoryList = categoryList + ", "; }
+        categoryList = categoryList + "\"" + c.name + "\"";
+        first = false;
+    }
+
+    var matchType = "TargetGroup.MatchType." + t.matchType.toString();
+
+    return "new TargetGroup(List.of(" + productList + "), List.of(" + tagList + "), List.of(" + categoryList + "), " + matchType + ")";
+}
+%]

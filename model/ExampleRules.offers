@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dis:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dis="http://cs.york.ac.uk/eng2/202425/offers">
-  <offerRules name="Bakewell Tart Sale">
-    <actions xsi:type="dis:PercentageDiscount" name="10% off first 10 Bakewell Tarts per day" maxUsesPerDay="10" percent="10.0">
+  <offerRules name="Bakewell Tart Sale" maxUsesPerDay="10">
+    <actions xsi:type="dis:PercentageDiscount" name="10% off Bakewell Tarts" percent="10.0" maxQuantity="0">
       <targets products="//@products.0"/>
     </actions>
     <conditions xsi:type="dis:RequiresTarget" name="Requires Bakewell Tarts">
@@ -10,18 +10,18 @@
     <ruleTrigger targetOffer="//@offerRules.1"/>
   </offerRules>
   <offerRules name="Large Pizza Bundle">
-    <actions xsi:type="dis:SetPrice" name="£10 for 2 large pizzas" repeatable="true" maxQuantity="2" amount="10.0">
-      <targets tags="//@tags.0 //@tags.1"/>
-    </actions>
-    <actions xsi:type="dis:SetPrice" name="1 free large ice-cream" repeatable="true" maxQuantity="1" amount="0.0">
+    <actions xsi:type="dis:SetPrice" name="1 free large ice-cream" repeatable="true" amount="0.0" maxQuantity="1">
       <targets tags="//@tags.2 //@tags.0"/>
+    </actions>
+    <actions xsi:type="dis:MultiBuyPrice" name="2 large pizzas for £10" repeatable="true" qualifyingQuantity="2" payAmount="10.0">
+      <targets tags="//@tags.1 //@tags.0"/>
     </actions>
     <conditions xsi:type="dis:RequiresTarget" name="Requires 2 large pizzas">
       <targets tags="//@tags.0 //@tags.1"/>
     </conditions>
     <ruleTrigger type="IF_NOT_MATCH" targetOffer="//@offerRules.2"/>
   </offerRules>
-  <offerRules name="2-for-1 Pizza Deal">
+  <offerRules name="TwoForOne Pizza Deal">
     <actions xsi:type="dis:MultiBuyPrice" name="Pizza 2-for-1" repeatable="true" qualifyingQuantity="2" payForQuantity="1">
       <targets tags="//@tags.1"/>
     </actions>
@@ -31,13 +31,13 @@
     <ruleTrigger targetOffer="//@offerRules.3"/>
   </offerRules>
   <offerRules name="Christmas Day Sale">
-    <actions xsi:type="dis:PercentageDiscount" name="10% off order" wholeOrder="true" targetMatchType="ANY" percent="10.0"/>
+    <actions xsi:type="dis:PercentageDiscount" name="10% off order" targetMatchType="ANY" percent="10.0" wholeOrder="true"/>
     <conditions xsi:type="dis:OnDate" name="On Christmas Day" startDate="//@savedDates.0" endDate="//@savedDates.0"/>
     <conditions xsi:type="dis:OrderTotal" name="Minimum £60" minTotal="60.0"/>
     <ruleTrigger type="IF_NOT_MATCH" targetOffer="//@offerRules.4"/>
   </offerRules>
   <offerRules name="Chocolate Cake Sale">
-    <actions xsi:type="dis:FlatDiscount" name="£5 off" wholeOrder="true" amount="5.0"/>
+    <actions xsi:type="dis:FlatDiscount" name="£5 off" amount="5.0"/>
     <conditions xsi:type="dis:RequiresTarget" name="Requires chocolate cake">
       <targets tags="//@tags.3 //@tags.4"/>
     </conditions>

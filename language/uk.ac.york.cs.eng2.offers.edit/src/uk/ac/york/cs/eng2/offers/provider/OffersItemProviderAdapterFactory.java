@@ -325,29 +325,6 @@ public class OffersItemProviderAdapterFactory extends OffersAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link uk.ac.york.cs.eng2.offers.AddFreeProduct} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AddFreeProductItemProvider addFreeProductItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link uk.ac.york.cs.eng2.offers.AddFreeProduct}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAddFreeProductAdapter() {
-		if (addFreeProductItemProvider == null) {
-			addFreeProductItemProvider = new AddFreeProductItemProvider(this);
-		}
-
-		return addFreeProductItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link uk.ac.york.cs.eng2.offers.RequiresTarget} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -555,7 +532,6 @@ public class OffersItemProviderAdapterFactory extends OffersAdapterFactory imple
 		if (percentageDiscountItemProvider != null) percentageDiscountItemProvider.dispose();
 		if (setPriceItemProvider != null) setPriceItemProvider.dispose();
 		if (multiBuyPriceItemProvider != null) multiBuyPriceItemProvider.dispose();
-		if (addFreeProductItemProvider != null) addFreeProductItemProvider.dispose();
 		if (requiresTargetItemProvider != null) requiresTargetItemProvider.dispose();
 		if (orderTotalItemProvider != null) orderTotalItemProvider.dispose();
 		if (onDateItemProvider != null) onDateItemProvider.dispose();

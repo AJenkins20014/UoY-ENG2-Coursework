@@ -11,11 +11,14 @@ import org.flywaydb.core.internal.util.Pair;
 import uk.ac.york.eng2.products.domain.Product;
 import uk.ac.york.eng2.products.domain.Tag;
 import uk.ac.york.eng2.products.dto.ProductCreateDTO;
+import uk.ac.york.eng2.products.offers.OfferExecutor;
+import uk.ac.york.eng2.products.offers.OrderContext;
 import uk.ac.york.eng2.products.repository.ProductRepository;
 import uk.ac.york.eng2.products.repository.TagRepository;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.*;
 
 @io.swagger.v3.oas.annotations.tags.Tag(name="products")
@@ -56,7 +59,7 @@ public class ProductController {
     }
 
     @Post("/orderPrice")
-    public Map<String,Object> priceOrder(@Body Map<Long,Integer> orderItems) {
+    public Map<String,Object> priceOrder(@Body Map<Long, Integer> orderItems) {
         Map<Long, BigDecimal> itemPrices = new HashMap<>();
         BigDecimal totalPrice = new BigDecimal(0);
 
@@ -69,7 +72,11 @@ public class ProductController {
             totalPrice = totalPrice.add(orderItemPrice);
         }
 
-        return Map.of("items", itemPrices, "total", totalPrice);
+        OrderContext context = new OrderContext(orderItems, itemPrices, totalPrice, LocalDate.now());
+
+        OrderContext offersApplied = new OfferExecutor().applyOffers(context);
+
+        return Map.of("items", offersApplied.itemPrices, "total", offersApplied.totalPrice);
     }
 
     private BigDecimal getProductPrice(long productId) {

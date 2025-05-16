@@ -21,6 +21,7 @@ import uk.ac.york.cs.eng2.offers.OffersPackage;
  * <ul>
  *   <li>{@link uk.ac.york.cs.eng2.offers.impl.MultiBuyPriceImpl#getQualifyingQuantity <em>Qualifying Quantity</em>}</li>
  *   <li>{@link uk.ac.york.cs.eng2.offers.impl.MultiBuyPriceImpl#getPayForQuantity <em>Pay For Quantity</em>}</li>
+ *   <li>{@link uk.ac.york.cs.eng2.offers.impl.MultiBuyPriceImpl#getPayAmount <em>Pay Amount</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +66,26 @@ public class MultiBuyPriceImpl extends ScopedActionImpl implements MultiBuyPrice
 	 * @ordered
 	 */
 	protected Integer payForQuantity = PAY_FOR_QUANTITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPayAmount() <em>Pay Amount</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPayAmount()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Double PAY_AMOUNT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPayAmount() <em>Pay Amount</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPayAmount()
+	 * @generated
+	 * @ordered
+	 */
+	protected Double payAmount = PAY_AMOUNT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -137,12 +158,37 @@ public class MultiBuyPriceImpl extends ScopedActionImpl implements MultiBuyPrice
 	 * @generated
 	 */
 	@Override
+	public Double getPayAmount() {
+		return payAmount;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPayAmount(Double newPayAmount) {
+		Double oldPayAmount = payAmount;
+		payAmount = newPayAmount;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OffersPackage.MULTI_BUY_PRICE__PAY_AMOUNT, oldPayAmount, payAmount));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case OffersPackage.MULTI_BUY_PRICE__QUALIFYING_QUANTITY:
 				return getQualifyingQuantity();
 			case OffersPackage.MULTI_BUY_PRICE__PAY_FOR_QUANTITY:
 				return getPayForQuantity();
+			case OffersPackage.MULTI_BUY_PRICE__PAY_AMOUNT:
+				return getPayAmount();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -160,6 +206,9 @@ public class MultiBuyPriceImpl extends ScopedActionImpl implements MultiBuyPrice
 				return;
 			case OffersPackage.MULTI_BUY_PRICE__PAY_FOR_QUANTITY:
 				setPayForQuantity((Integer)newValue);
+				return;
+			case OffersPackage.MULTI_BUY_PRICE__PAY_AMOUNT:
+				setPayAmount((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -179,6 +228,9 @@ public class MultiBuyPriceImpl extends ScopedActionImpl implements MultiBuyPrice
 			case OffersPackage.MULTI_BUY_PRICE__PAY_FOR_QUANTITY:
 				setPayForQuantity(PAY_FOR_QUANTITY_EDEFAULT);
 				return;
+			case OffersPackage.MULTI_BUY_PRICE__PAY_AMOUNT:
+				setPayAmount(PAY_AMOUNT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -195,6 +247,8 @@ public class MultiBuyPriceImpl extends ScopedActionImpl implements MultiBuyPrice
 				return QUALIFYING_QUANTITY_EDEFAULT == null ? qualifyingQuantity != null : !QUALIFYING_QUANTITY_EDEFAULT.equals(qualifyingQuantity);
 			case OffersPackage.MULTI_BUY_PRICE__PAY_FOR_QUANTITY:
 				return PAY_FOR_QUANTITY_EDEFAULT == null ? payForQuantity != null : !PAY_FOR_QUANTITY_EDEFAULT.equals(payForQuantity);
+			case OffersPackage.MULTI_BUY_PRICE__PAY_AMOUNT:
+				return PAY_AMOUNT_EDEFAULT == null ? payAmount != null : !PAY_AMOUNT_EDEFAULT.equals(payAmount);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -213,6 +267,8 @@ public class MultiBuyPriceImpl extends ScopedActionImpl implements MultiBuyPrice
 		result.append(qualifyingQuantity);
 		result.append(", payForQuantity: ");
 		result.append(payForQuantity);
+		result.append(", payAmount: ");
+		result.append(payAmount);
 		result.append(')');
 		return result.toString();
 	}

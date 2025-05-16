@@ -1,0 +1,48 @@
+[%
+import "GenerateTargetGroup.egl";
+%]
+
+[%
+operation generateActionCall(a : offers::Action) : String {
+
+    if (a.isTypeOf(offers::FlatDiscount)) {
+        return "context = FlatDiscountAction.apply(context, "
+             + a.amount + ");";
+    }
+
+    if (a.isTypeOf(offers::PercentageDiscount)) {
+        return "context = PercentageDiscountAction.apply(context, "
+             + a.percent + ", "
+             + (a.maxQuantity != null ? a.maxQuantity : 0) + ", "
+             + a.wholeOrder + ", "
+             + generateTargetGroupList(a.targets) + ", "
+             + "TargetGroup.MatchType." + a.targetMatchType  + ", " +
+			"productRepository,
+			tagRepository);";
+    }
+
+    if (a.isTypeOf(offers::SetPrice)) {
+        return "context = SetPriceAction.apply(context, "
+             + a.amount + ", "
+             + (a.maxQuantity != null ? a.maxQuantity : 0) + ", "
+             + a.wholeOrder + ", "
+             + generateTargetGroupList(a.targets) + ", "
+             + "TargetGroup.MatchType." + a.targetMatchType  + ", " +
+			"productRepository,
+			tagRepository);";
+    }
+
+    if (a.isTypeOf(offers::MultiBuyPrice)) {
+    	var payQty = a.payForQuantity != null ? a.payForQuantity.toString() : "0";
+        var payAmt = a.payAmount != null ? a.payAmount.toString() : "null";
+        return "context = MultiBuyPriceAction.apply(context, "
+             + a.qualifyingQuantity + ", "
+             + payQty + ", "
+             + payAmt + ", "
+             + generateTargetGroupList(a.targets) + ", "
+             + "TargetGroup.MatchType." + a.targetMatchType  + ", " +
+			"productRepository,
+			tagRepository);";
+    }
+}
+%]

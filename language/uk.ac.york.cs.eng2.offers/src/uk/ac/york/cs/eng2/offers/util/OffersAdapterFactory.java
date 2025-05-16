@@ -120,10 +120,6 @@ public class OffersAdapterFactory extends AdapterFactoryImpl {
 				return createMultiBuyPriceAdapter();
 			}
 			@Override
-			public Adapter caseAddFreeProduct(AddFreeProduct object) {
-				return createAddFreeProductAdapter();
-			}
-			@Override
 			public Adapter caseCondition(Condition object) {
 				return createConditionAdapter();
 			}
@@ -342,20 +338,6 @@ public class OffersAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMultiBuyPriceAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link uk.ac.york.cs.eng2.offers.AddFreeProduct <em>Add Free Product</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see uk.ac.york.cs.eng2.offers.AddFreeProduct
-	 * @generated
-	 */
-	public Adapter createAddFreeProductAdapter() {
 		return null;
 	}
 

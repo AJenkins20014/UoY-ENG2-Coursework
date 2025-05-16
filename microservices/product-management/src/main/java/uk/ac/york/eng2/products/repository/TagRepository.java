@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface TagRepository extends CrudRepository<Tag, Long> {
     List<Tag> findByProductsId(long id);
+    List<Tag> findByProductsName(String name);
 }

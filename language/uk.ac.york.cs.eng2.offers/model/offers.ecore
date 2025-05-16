@@ -42,6 +42,7 @@
         eType="#//Condition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ruleTrigger" upperBound="-1"
         eType="#//RuleTrigger" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxUsesPerDay" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RuleTrigger">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//TriggerType"/>
@@ -58,10 +59,6 @@
         defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ScopedAction" abstract="true" eSuperTypes="#//Action">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxQuantity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxUsesPerDay" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="wholeOrder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
-        defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targets" upperBound="-1"
         eType="#//TargetGroup" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetMatchType" eType="#//MatchType"/>
@@ -71,17 +68,20 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PercentageDiscount" eSuperTypes="#//ScopedAction">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="percent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxQuantity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="wholeOrder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SetPrice" eSuperTypes="#//ScopedAction">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="amount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxQuantity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="wholeOrder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MultiBuyPrice" eSuperTypes="#//ScopedAction">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifyingQuantity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="payForQuantity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AddFreeProduct" eSuperTypes="#//Action">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="product" eType="#//Product"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="quantity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="payAmount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Condition" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

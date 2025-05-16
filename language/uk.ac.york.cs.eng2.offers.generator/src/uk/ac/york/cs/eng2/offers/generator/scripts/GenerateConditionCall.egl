@@ -1,0 +1,48 @@
+[%
+import "GenerateTargetGroup.egl";
+%]
+
+[%
+operation generateConditionCall(c : offers::Condition) : String {
+
+	if (c.isTypeOf(offers::RequiresTarget)) {
+		var tgList = generateTargetGroupList(c.targets);
+        var matchType = "TargetGroup.MatchType." + c.targetMatchType.toString();
+        var minQ = c.minQuantity != null ? c.minQuantity.toString() : "1";
+        var maxQ = c.maxQuantity != null ? c.maxQuantity.toString() : "0";
+		return "matches = RequiresTargetCondition.isValid(
+		context,
+		" + tgList + ", " +
+		matchType + ", " +
+		minQ + ", " +
+		maxQ + ", " +
+		"productRepository,
+		tagRepository);";
+	}
+	
+	if (c.isTypeOf(offers::OrderTotal)) {
+        var minT = c.minTotal != null ? c.minTotal.toString() : "1";
+        var maxT = c.maxTotal != null ? c.maxTotal.toString() : "0";
+		return "matches = OrderTotalCondition.isValid(
+		context, " +
+		minT + ", " +
+		maxT + ");";
+	}
+	
+	if (c.isTypeOf(offers::OnDate)) {
+	    var startYear = c.startDate.year != null ? c.startDate.year.toString() : "LocalDate.now().getYear()";
+	    var startMonth = c.startDate.month != null ? c.startDate.month.toString() : "1";
+	    var startDay = c.startDate.day != null ? c.startDate.day.toString() : "1";
+	
+	    var endYear = c.endDate.year != null ? c.endDate.year.toString() : "LocalDate.now().getYear()";
+	    var endMonth = c.endDate.month != null ? c.endDate.month.toString() : "12";
+	    var endDay = c.endDate.day != null ? c.endDate.day.toString() : "31";
+	
+	    var startDate = "new Date(" + startYear + ", " + startMonth + ", " + startDay + ")";
+	    var endDate = "new Date(" + endYear + ", " + endMonth + ", " + endDay + ")";
+	
+	    return "matches = OnDateCondition.isValid(context, " + startDate + ", " + endDate + ");";
+	}
+	
+}
+%]

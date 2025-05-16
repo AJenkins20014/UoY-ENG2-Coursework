@@ -46,6 +46,8 @@ public class PercentageDiscountItemProvider extends ScopedActionItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addPercentPropertyDescriptor(object);
+			addMaxQuantityPropertyDescriptor(object);
+			addWholeOrderPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -64,6 +66,50 @@ public class PercentageDiscountItemProvider extends ScopedActionItemProvider {
 				 getString("_UI_PercentageDiscount_percent_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_PercentageDiscount_percent_feature", "_UI_PercentageDiscount_type"),
 				 OffersPackage.Literals.PERCENTAGE_DISCOUNT__PERCENT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Max Quantity feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMaxQuantityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PercentageDiscount_maxQuantity_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PercentageDiscount_maxQuantity_feature", "_UI_PercentageDiscount_type"),
+				 OffersPackage.Literals.PERCENTAGE_DISCOUNT__MAX_QUANTITY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Whole Order feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addWholeOrderPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PercentageDiscount_wholeOrder_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PercentageDiscount_wholeOrder_feature", "_UI_PercentageDiscount_type"),
+				 OffersPackage.Literals.PERCENTAGE_DISCOUNT__WHOLE_ORDER,
 				 true,
 				 false,
 				 false,
@@ -111,6 +157,8 @@ public class PercentageDiscountItemProvider extends ScopedActionItemProvider {
 
 		switch (notification.getFeatureID(PercentageDiscount.class)) {
 			case OffersPackage.PERCENTAGE_DISCOUNT__PERCENT:
+			case OffersPackage.PERCENTAGE_DISCOUNT__MAX_QUANTITY:
+			case OffersPackage.PERCENTAGE_DISCOUNT__WHOLE_ORDER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

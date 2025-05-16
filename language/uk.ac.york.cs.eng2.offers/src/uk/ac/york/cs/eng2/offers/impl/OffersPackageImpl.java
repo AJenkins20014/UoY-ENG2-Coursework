@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import uk.ac.york.cs.eng2.offers.Action;
-import uk.ac.york.cs.eng2.offers.AddFreeProduct;
 import uk.ac.york.cs.eng2.offers.Category;
 import uk.ac.york.cs.eng2.offers.Condition;
 import uk.ac.york.cs.eng2.offers.Date;
@@ -131,13 +130,6 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 	 * @generated
 	 */
 	private EClass multiBuyPriceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass addFreeProductEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -514,6 +506,16 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getOfferRule_MaxUsesPerDay() {
+		return (EAttribute)offerRuleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getRuleTrigger() {
 		return ruleTriggerEClass;
 	}
@@ -584,38 +586,8 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getScopedAction_MaxQuantity() {
-		return (EAttribute)scopedActionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getScopedAction_MaxUsesPerDay() {
-		return (EAttribute)scopedActionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getScopedAction_WholeOrder() {
-		return (EAttribute)scopedActionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EReference getScopedAction_Targets() {
-		return (EReference)scopedActionEClass.getEStructuralFeatures().get(3);
+		return (EReference)scopedActionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -625,7 +597,7 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 	 */
 	@Override
 	public EAttribute getScopedAction_TargetMatchType() {
-		return (EAttribute)scopedActionEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)scopedActionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -674,6 +646,26 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getPercentageDiscount_MaxQuantity() {
+		return (EAttribute)percentageDiscountEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getPercentageDiscount_WholeOrder() {
+		return (EAttribute)percentageDiscountEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getSetPrice() {
 		return setPriceEClass;
 	}
@@ -686,6 +678,26 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 	@Override
 	public EAttribute getSetPrice_Amount() {
 		return (EAttribute)setPriceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSetPrice_MaxQuantity() {
+		return (EAttribute)setPriceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSetPrice_WholeOrder() {
+		return (EAttribute)setPriceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -724,28 +736,8 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getAddFreeProduct() {
-		return addFreeProductEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getAddFreeProduct_Product() {
-		return (EReference)addFreeProductEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getAddFreeProduct_Quantity() {
-		return (EAttribute)addFreeProductEClass.getEStructuralFeatures().get(1);
+	public EAttribute getMultiBuyPrice_PayAmount() {
+		return (EAttribute)multiBuyPriceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1008,6 +1000,7 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 		createEReference(offerRuleEClass, OFFER_RULE__ACTIONS);
 		createEReference(offerRuleEClass, OFFER_RULE__CONDITIONS);
 		createEReference(offerRuleEClass, OFFER_RULE__RULE_TRIGGER);
+		createEAttribute(offerRuleEClass, OFFER_RULE__MAX_USES_PER_DAY);
 
 		ruleTriggerEClass = createEClass(RULE_TRIGGER);
 		createEAttribute(ruleTriggerEClass, RULE_TRIGGER__TYPE);
@@ -1018,9 +1011,6 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 		createEAttribute(actionEClass, ACTION__REPEATABLE);
 
 		scopedActionEClass = createEClass(SCOPED_ACTION);
-		createEAttribute(scopedActionEClass, SCOPED_ACTION__MAX_QUANTITY);
-		createEAttribute(scopedActionEClass, SCOPED_ACTION__MAX_USES_PER_DAY);
-		createEAttribute(scopedActionEClass, SCOPED_ACTION__WHOLE_ORDER);
 		createEReference(scopedActionEClass, SCOPED_ACTION__TARGETS);
 		createEAttribute(scopedActionEClass, SCOPED_ACTION__TARGET_MATCH_TYPE);
 
@@ -1029,17 +1019,18 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 
 		percentageDiscountEClass = createEClass(PERCENTAGE_DISCOUNT);
 		createEAttribute(percentageDiscountEClass, PERCENTAGE_DISCOUNT__PERCENT);
+		createEAttribute(percentageDiscountEClass, PERCENTAGE_DISCOUNT__MAX_QUANTITY);
+		createEAttribute(percentageDiscountEClass, PERCENTAGE_DISCOUNT__WHOLE_ORDER);
 
 		setPriceEClass = createEClass(SET_PRICE);
 		createEAttribute(setPriceEClass, SET_PRICE__AMOUNT);
+		createEAttribute(setPriceEClass, SET_PRICE__MAX_QUANTITY);
+		createEAttribute(setPriceEClass, SET_PRICE__WHOLE_ORDER);
 
 		multiBuyPriceEClass = createEClass(MULTI_BUY_PRICE);
 		createEAttribute(multiBuyPriceEClass, MULTI_BUY_PRICE__QUALIFYING_QUANTITY);
 		createEAttribute(multiBuyPriceEClass, MULTI_BUY_PRICE__PAY_FOR_QUANTITY);
-
-		addFreeProductEClass = createEClass(ADD_FREE_PRODUCT);
-		createEReference(addFreeProductEClass, ADD_FREE_PRODUCT__PRODUCT);
-		createEAttribute(addFreeProductEClass, ADD_FREE_PRODUCT__QUANTITY);
+		createEAttribute(multiBuyPriceEClass, MULTI_BUY_PRICE__PAY_AMOUNT);
 
 		conditionEClass = createEClass(CONDITION);
 		createEAttribute(conditionEClass, CONDITION__NAME);
@@ -1102,7 +1093,6 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 		percentageDiscountEClass.getESuperTypes().add(this.getScopedAction());
 		setPriceEClass.getESuperTypes().add(this.getScopedAction());
 		multiBuyPriceEClass.getESuperTypes().add(this.getScopedAction());
-		addFreeProductEClass.getESuperTypes().add(this.getAction());
 		requiresTargetEClass.getESuperTypes().add(this.getCondition());
 		orderTotalEClass.getESuperTypes().add(this.getCondition());
 		onDateEClass.getESuperTypes().add(this.getCondition());
@@ -1139,6 +1129,7 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 		initEReference(getOfferRule_Actions(), this.getAction(), null, "actions", null, 0, -1, OfferRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOfferRule_Conditions(), this.getCondition(), null, "conditions", null, 0, -1, OfferRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOfferRule_RuleTrigger(), this.getRuleTrigger(), null, "ruleTrigger", null, 0, -1, OfferRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOfferRule_MaxUsesPerDay(), ecorePackage.getEIntegerObject(), "maxUsesPerDay", null, 0, 1, OfferRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ruleTriggerEClass, RuleTrigger.class, "RuleTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRuleTrigger_Type(), this.getTriggerType(), "type", null, 0, 1, RuleTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1149,9 +1140,6 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 		initEAttribute(getAction_Repeatable(), ecorePackage.getEBooleanObject(), "repeatable", "false", 0, 1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(scopedActionEClass, ScopedAction.class, "ScopedAction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getScopedAction_MaxQuantity(), ecorePackage.getEIntegerObject(), "maxQuantity", null, 0, 1, ScopedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getScopedAction_MaxUsesPerDay(), ecorePackage.getEIntegerObject(), "maxUsesPerDay", null, 0, 1, ScopedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getScopedAction_WholeOrder(), ecorePackage.getEBooleanObject(), "wholeOrder", "false", 0, 1, ScopedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getScopedAction_Targets(), this.getTargetGroup(), null, "targets", null, 0, -1, ScopedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getScopedAction_TargetMatchType(), this.getMatchType(), "targetMatchType", null, 0, 1, ScopedAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1160,17 +1148,18 @@ public class OffersPackageImpl extends EPackageImpl implements OffersPackage {
 
 		initEClass(percentageDiscountEClass, PercentageDiscount.class, "PercentageDiscount", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPercentageDiscount_Percent(), ecorePackage.getEDoubleObject(), "percent", null, 0, 1, PercentageDiscount.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPercentageDiscount_MaxQuantity(), ecorePackage.getEIntegerObject(), "maxQuantity", null, 0, 1, PercentageDiscount.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPercentageDiscount_WholeOrder(), ecorePackage.getEBooleanObject(), "wholeOrder", "false", 0, 1, PercentageDiscount.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(setPriceEClass, SetPrice.class, "SetPrice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSetPrice_Amount(), ecorePackage.getEDoubleObject(), "amount", null, 0, 1, SetPrice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSetPrice_MaxQuantity(), ecorePackage.getEIntegerObject(), "maxQuantity", null, 0, 1, SetPrice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSetPrice_WholeOrder(), ecorePackage.getEBooleanObject(), "wholeOrder", "false", 0, 1, SetPrice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(multiBuyPriceEClass, MultiBuyPrice.class, "MultiBuyPrice", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMultiBuyPrice_QualifyingQuantity(), ecorePackage.getEIntegerObject(), "qualifyingQuantity", null, 0, 1, MultiBuyPrice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMultiBuyPrice_PayForQuantity(), ecorePackage.getEIntegerObject(), "payForQuantity", null, 0, 1, MultiBuyPrice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(addFreeProductEClass, AddFreeProduct.class, "AddFreeProduct", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAddFreeProduct_Product(), this.getProduct(), null, "product", null, 0, 1, AddFreeProduct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAddFreeProduct_Quantity(), ecorePackage.getEIntegerObject(), "quantity", null, 0, 1, AddFreeProduct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMultiBuyPrice_PayAmount(), ecorePackage.getEDoubleObject(), "payAmount", null, 0, 1, MultiBuyPrice.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(conditionEClass, Condition.class, "Condition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCondition_Name(), ecorePackage.getEString(), "name", null, 0, 1, Condition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

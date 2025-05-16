@@ -14,6 +14,7 @@ package uk.ac.york.cs.eng2.offers;
  * <ul>
  *   <li>{@link uk.ac.york.cs.eng2.offers.MultiBuyPrice#getQualifyingQuantity <em>Qualifying Quantity</em>}</li>
  *   <li>{@link uk.ac.york.cs.eng2.offers.MultiBuyPrice#getPayForQuantity <em>Pay For Quantity</em>}</li>
+ *   <li>{@link uk.ac.york.cs.eng2.offers.MultiBuyPrice#getPayAmount <em>Pay Amount</em>}</li>
  * </ul>
  *
  * @see uk.ac.york.cs.eng2.offers.OffersPackage#getMultiBuyPrice()
@@ -64,5 +65,27 @@ public interface MultiBuyPrice extends ScopedAction {
 	 * @generated
 	 */
 	void setPayForQuantity(Integer value);
+
+	/**
+	 * Returns the value of the '<em><b>Pay Amount</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Pay Amount</em>' attribute.
+	 * @see #setPayAmount(Double)
+	 * @see uk.ac.york.cs.eng2.offers.OffersPackage#getMultiBuyPrice_PayAmount()
+	 * @model
+	 * @generated
+	 */
+	Double getPayAmount();
+
+	/**
+	 * Sets the value of the '{@link uk.ac.york.cs.eng2.offers.MultiBuyPrice#getPayAmount <em>Pay Amount</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Pay Amount</em>' attribute.
+	 * @see #getPayAmount()
+	 * @generated
+	 */
+	void setPayAmount(Double value);
 
 } // MultiBuyPrice

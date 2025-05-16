@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link uk.ac.york.cs.eng2.offers.OfferRule#getActions <em>Actions</em>}</li>
  *   <li>{@link uk.ac.york.cs.eng2.offers.OfferRule#getConditions <em>Conditions</em>}</li>
  *   <li>{@link uk.ac.york.cs.eng2.offers.OfferRule#getRuleTrigger <em>Rule Trigger</em>}</li>
+ *   <li>{@link uk.ac.york.cs.eng2.offers.OfferRule#getMaxUsesPerDay <em>Max Uses Per Day</em>}</li>
  * </ul>
  *
  * @see uk.ac.york.cs.eng2.offers.OffersPackage#getOfferRule()
@@ -83,5 +84,27 @@ public interface OfferRule extends EObject {
 	 * @generated
 	 */
 	EList<RuleTrigger> getRuleTrigger();
+
+	/**
+	 * Returns the value of the '<em><b>Max Uses Per Day</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Max Uses Per Day</em>' attribute.
+	 * @see #setMaxUsesPerDay(Integer)
+	 * @see uk.ac.york.cs.eng2.offers.OffersPackage#getOfferRule_MaxUsesPerDay()
+	 * @model
+	 * @generated
+	 */
+	Integer getMaxUsesPerDay();
+
+	/**
+	 * Sets the value of the '{@link uk.ac.york.cs.eng2.offers.OfferRule#getMaxUsesPerDay <em>Max Uses Per Day</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Max Uses Per Day</em>' attribute.
+	 * @see #getMaxUsesPerDay()
+	 * @generated
+	 */
+	void setMaxUsesPerDay(Integer value);
 
 } // OfferRule

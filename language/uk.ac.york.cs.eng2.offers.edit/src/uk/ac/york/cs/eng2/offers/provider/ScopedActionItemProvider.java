@@ -48,78 +48,9 @@ public class ScopedActionItemProvider extends ActionItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addMaxQuantityPropertyDescriptor(object);
-			addMaxUsesPerDayPropertyDescriptor(object);
-			addWholeOrderPropertyDescriptor(object);
 			addTargetMatchTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Max Quantity feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMaxQuantityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ScopedAction_maxQuantity_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScopedAction_maxQuantity_feature", "_UI_ScopedAction_type"),
-				 OffersPackage.Literals.SCOPED_ACTION__MAX_QUANTITY,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Max Uses Per Day feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMaxUsesPerDayPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ScopedAction_maxUsesPerDay_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScopedAction_maxUsesPerDay_feature", "_UI_ScopedAction_type"),
-				 OffersPackage.Literals.SCOPED_ACTION__MAX_USES_PER_DAY,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Whole Order feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addWholeOrderPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ScopedAction_wholeOrder_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScopedAction_wholeOrder_feature", "_UI_ScopedAction_type"),
-				 OffersPackage.Literals.SCOPED_ACTION__WHOLE_ORDER,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -201,9 +132,6 @@ public class ScopedActionItemProvider extends ActionItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ScopedAction.class)) {
-			case OffersPackage.SCOPED_ACTION__MAX_QUANTITY:
-			case OffersPackage.SCOPED_ACTION__MAX_USES_PER_DAY:
-			case OffersPackage.SCOPED_ACTION__WHOLE_ORDER:
 			case OffersPackage.SCOPED_ACTION__TARGET_MATCH_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

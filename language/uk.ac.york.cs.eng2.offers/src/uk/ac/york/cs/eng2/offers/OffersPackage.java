@@ -388,13 +388,22 @@ public interface OffersPackage extends EPackage {
 	int OFFER_RULE__RULE_TRIGGER = 3;
 
 	/**
+	 * The feature id for the '<em><b>Max Uses Per Day</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OFFER_RULE__MAX_USES_PER_DAY = 4;
+
+	/**
 	 * The number of structural features of the '<em>Offer Rule</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OFFER_RULE_FEATURE_COUNT = 4;
+	int OFFER_RULE_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Offer Rule</em>' class.
@@ -526,40 +535,13 @@ public interface OffersPackage extends EPackage {
 	int SCOPED_ACTION__REPEATABLE = ACTION__REPEATABLE;
 
 	/**
-	 * The feature id for the '<em><b>Max Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SCOPED_ACTION__MAX_QUANTITY = ACTION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Max Uses Per Day</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SCOPED_ACTION__MAX_USES_PER_DAY = ACTION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Whole Order</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SCOPED_ACTION__WHOLE_ORDER = ACTION_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Targets</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SCOPED_ACTION__TARGETS = ACTION_FEATURE_COUNT + 3;
+	int SCOPED_ACTION__TARGETS = ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Target Match Type</b></em>' attribute.
@@ -568,7 +550,7 @@ public interface OffersPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCOPED_ACTION__TARGET_MATCH_TYPE = ACTION_FEATURE_COUNT + 4;
+	int SCOPED_ACTION__TARGET_MATCH_TYPE = ACTION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Scoped Action</em>' class.
@@ -577,7 +559,7 @@ public interface OffersPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCOPED_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 5;
+	int SCOPED_ACTION_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Scoped Action</em>' class.
@@ -615,33 +597,6 @@ public interface OffersPackage extends EPackage {
 	 * @ordered
 	 */
 	int FLAT_DISCOUNT__REPEATABLE = SCOPED_ACTION__REPEATABLE;
-
-	/**
-	 * The feature id for the '<em><b>Max Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLAT_DISCOUNT__MAX_QUANTITY = SCOPED_ACTION__MAX_QUANTITY;
-
-	/**
-	 * The feature id for the '<em><b>Max Uses Per Day</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLAT_DISCOUNT__MAX_USES_PER_DAY = SCOPED_ACTION__MAX_USES_PER_DAY;
-
-	/**
-	 * The feature id for the '<em><b>Whole Order</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FLAT_DISCOUNT__WHOLE_ORDER = SCOPED_ACTION__WHOLE_ORDER;
 
 	/**
 	 * The feature id for the '<em><b>Targets</b></em>' containment reference list.
@@ -717,33 +672,6 @@ public interface OffersPackage extends EPackage {
 	int PERCENTAGE_DISCOUNT__REPEATABLE = SCOPED_ACTION__REPEATABLE;
 
 	/**
-	 * The feature id for the '<em><b>Max Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PERCENTAGE_DISCOUNT__MAX_QUANTITY = SCOPED_ACTION__MAX_QUANTITY;
-
-	/**
-	 * The feature id for the '<em><b>Max Uses Per Day</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PERCENTAGE_DISCOUNT__MAX_USES_PER_DAY = SCOPED_ACTION__MAX_USES_PER_DAY;
-
-	/**
-	 * The feature id for the '<em><b>Whole Order</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PERCENTAGE_DISCOUNT__WHOLE_ORDER = SCOPED_ACTION__WHOLE_ORDER;
-
-	/**
 	 * The feature id for the '<em><b>Targets</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -771,13 +699,31 @@ public interface OffersPackage extends EPackage {
 	int PERCENTAGE_DISCOUNT__PERCENT = SCOPED_ACTION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Max Quantity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERCENTAGE_DISCOUNT__MAX_QUANTITY = SCOPED_ACTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Whole Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERCENTAGE_DISCOUNT__WHOLE_ORDER = SCOPED_ACTION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Percentage Discount</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERCENTAGE_DISCOUNT_FEATURE_COUNT = SCOPED_ACTION_FEATURE_COUNT + 1;
+	int PERCENTAGE_DISCOUNT_FEATURE_COUNT = SCOPED_ACTION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Percentage Discount</em>' class.
@@ -817,33 +763,6 @@ public interface OffersPackage extends EPackage {
 	int SET_PRICE__REPEATABLE = SCOPED_ACTION__REPEATABLE;
 
 	/**
-	 * The feature id for the '<em><b>Max Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_PRICE__MAX_QUANTITY = SCOPED_ACTION__MAX_QUANTITY;
-
-	/**
-	 * The feature id for the '<em><b>Max Uses Per Day</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_PRICE__MAX_USES_PER_DAY = SCOPED_ACTION__MAX_USES_PER_DAY;
-
-	/**
-	 * The feature id for the '<em><b>Whole Order</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_PRICE__WHOLE_ORDER = SCOPED_ACTION__WHOLE_ORDER;
-
-	/**
 	 * The feature id for the '<em><b>Targets</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -871,13 +790,31 @@ public interface OffersPackage extends EPackage {
 	int SET_PRICE__AMOUNT = SCOPED_ACTION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Max Quantity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SET_PRICE__MAX_QUANTITY = SCOPED_ACTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Whole Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SET_PRICE__WHOLE_ORDER = SCOPED_ACTION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Set Price</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SET_PRICE_FEATURE_COUNT = SCOPED_ACTION_FEATURE_COUNT + 1;
+	int SET_PRICE_FEATURE_COUNT = SCOPED_ACTION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Set Price</em>' class.
@@ -917,33 +854,6 @@ public interface OffersPackage extends EPackage {
 	int MULTI_BUY_PRICE__REPEATABLE = SCOPED_ACTION__REPEATABLE;
 
 	/**
-	 * The feature id for the '<em><b>Max Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MULTI_BUY_PRICE__MAX_QUANTITY = SCOPED_ACTION__MAX_QUANTITY;
-
-	/**
-	 * The feature id for the '<em><b>Max Uses Per Day</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MULTI_BUY_PRICE__MAX_USES_PER_DAY = SCOPED_ACTION__MAX_USES_PER_DAY;
-
-	/**
-	 * The feature id for the '<em><b>Whole Order</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MULTI_BUY_PRICE__WHOLE_ORDER = SCOPED_ACTION__WHOLE_ORDER;
-
-	/**
 	 * The feature id for the '<em><b>Targets</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -980,13 +890,22 @@ public interface OffersPackage extends EPackage {
 	int MULTI_BUY_PRICE__PAY_FOR_QUANTITY = SCOPED_ACTION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Pay Amount</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_BUY_PRICE__PAY_AMOUNT = SCOPED_ACTION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Multi Buy Price</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MULTI_BUY_PRICE_FEATURE_COUNT = SCOPED_ACTION_FEATURE_COUNT + 2;
+	int MULTI_BUY_PRICE_FEATURE_COUNT = SCOPED_ACTION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Multi Buy Price</em>' class.
@@ -998,70 +917,6 @@ public interface OffersPackage extends EPackage {
 	int MULTI_BUY_PRICE_OPERATION_COUNT = SCOPED_ACTION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link uk.ac.york.cs.eng2.offers.impl.AddFreeProductImpl <em>Add Free Product</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see uk.ac.york.cs.eng2.offers.impl.AddFreeProductImpl
-	 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getAddFreeProduct()
-	 * @generated
-	 */
-	int ADD_FREE_PRODUCT = 13;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_FREE_PRODUCT__NAME = ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Repeatable</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_FREE_PRODUCT__REPEATABLE = ACTION__REPEATABLE;
-
-	/**
-	 * The feature id for the '<em><b>Product</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_FREE_PRODUCT__PRODUCT = ACTION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Quantity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_FREE_PRODUCT__QUANTITY = ACTION_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Add Free Product</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_FREE_PRODUCT_FEATURE_COUNT = ACTION_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Add Free Product</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_FREE_PRODUCT_OPERATION_COUNT = ACTION_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link uk.ac.york.cs.eng2.offers.impl.ConditionImpl <em>Condition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1069,7 +924,7 @@ public interface OffersPackage extends EPackage {
 	 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getCondition()
 	 * @generated
 	 */
-	int CONDITION = 14;
+	int CONDITION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1106,7 +961,7 @@ public interface OffersPackage extends EPackage {
 	 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getRequiresTarget()
 	 * @generated
 	 */
-	int REQUIRES_TARGET = 15;
+	int REQUIRES_TARGET = 14;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1179,7 +1034,7 @@ public interface OffersPackage extends EPackage {
 	 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getOrderTotal()
 	 * @generated
 	 */
-	int ORDER_TOTAL = 16;
+	int ORDER_TOTAL = 15;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1234,7 +1089,7 @@ public interface OffersPackage extends EPackage {
 	 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getOnDate()
 	 * @generated
 	 */
-	int ON_DATE = 17;
+	int ON_DATE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1289,7 +1144,7 @@ public interface OffersPackage extends EPackage {
 	 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getTargetGroup()
 	 * @generated
 	 */
-	int TARGET_GROUP = 18;
+	int TARGET_GROUP = 17;
 
 	/**
 	 * The feature id for the '<em><b>Match Type</b></em>' attribute.
@@ -1353,7 +1208,7 @@ public interface OffersPackage extends EPackage {
 	 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getTriggerType()
 	 * @generated
 	 */
-	int TRIGGER_TYPE = 19;
+	int TRIGGER_TYPE = 18;
 
 	/**
 	 * The meta object id for the '{@link uk.ac.york.cs.eng2.offers.MatchType <em>Match Type</em>}' enum.
@@ -1363,7 +1218,7 @@ public interface OffersPackage extends EPackage {
 	 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getMatchType()
 	 * @generated
 	 */
-	int MATCH_TYPE = 20;
+	int MATCH_TYPE = 19;
 
 
 	/**
@@ -1647,6 +1502,17 @@ public interface OffersPackage extends EPackage {
 	EReference getOfferRule_RuleTrigger();
 
 	/**
+	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.OfferRule#getMaxUsesPerDay <em>Max Uses Per Day</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Uses Per Day</em>'.
+	 * @see uk.ac.york.cs.eng2.offers.OfferRule#getMaxUsesPerDay()
+	 * @see #getOfferRule()
+	 * @generated
+	 */
+	EAttribute getOfferRule_MaxUsesPerDay();
+
+	/**
 	 * Returns the meta object for class '{@link uk.ac.york.cs.eng2.offers.RuleTrigger <em>Rule Trigger</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1721,39 +1587,6 @@ public interface OffersPackage extends EPackage {
 	EClass getScopedAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.ScopedAction#getMaxQuantity <em>Max Quantity</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Max Quantity</em>'.
-	 * @see uk.ac.york.cs.eng2.offers.ScopedAction#getMaxQuantity()
-	 * @see #getScopedAction()
-	 * @generated
-	 */
-	EAttribute getScopedAction_MaxQuantity();
-
-	/**
-	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.ScopedAction#getMaxUsesPerDay <em>Max Uses Per Day</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Max Uses Per Day</em>'.
-	 * @see uk.ac.york.cs.eng2.offers.ScopedAction#getMaxUsesPerDay()
-	 * @see #getScopedAction()
-	 * @generated
-	 */
-	EAttribute getScopedAction_MaxUsesPerDay();
-
-	/**
-	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.ScopedAction#getWholeOrder <em>Whole Order</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Whole Order</em>'.
-	 * @see uk.ac.york.cs.eng2.offers.ScopedAction#getWholeOrder()
-	 * @see #getScopedAction()
-	 * @generated
-	 */
-	EAttribute getScopedAction_WholeOrder();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link uk.ac.york.cs.eng2.offers.ScopedAction#getTargets <em>Targets</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1818,6 +1651,28 @@ public interface OffersPackage extends EPackage {
 	EAttribute getPercentageDiscount_Percent();
 
 	/**
+	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.PercentageDiscount#getMaxQuantity <em>Max Quantity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Quantity</em>'.
+	 * @see uk.ac.york.cs.eng2.offers.PercentageDiscount#getMaxQuantity()
+	 * @see #getPercentageDiscount()
+	 * @generated
+	 */
+	EAttribute getPercentageDiscount_MaxQuantity();
+
+	/**
+	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.PercentageDiscount#getWholeOrder <em>Whole Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Whole Order</em>'.
+	 * @see uk.ac.york.cs.eng2.offers.PercentageDiscount#getWholeOrder()
+	 * @see #getPercentageDiscount()
+	 * @generated
+	 */
+	EAttribute getPercentageDiscount_WholeOrder();
+
+	/**
 	 * Returns the meta object for class '{@link uk.ac.york.cs.eng2.offers.SetPrice <em>Set Price</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1837,6 +1692,28 @@ public interface OffersPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSetPrice_Amount();
+
+	/**
+	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.SetPrice#getMaxQuantity <em>Max Quantity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Quantity</em>'.
+	 * @see uk.ac.york.cs.eng2.offers.SetPrice#getMaxQuantity()
+	 * @see #getSetPrice()
+	 * @generated
+	 */
+	EAttribute getSetPrice_MaxQuantity();
+
+	/**
+	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.SetPrice#getWholeOrder <em>Whole Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Whole Order</em>'.
+	 * @see uk.ac.york.cs.eng2.offers.SetPrice#getWholeOrder()
+	 * @see #getSetPrice()
+	 * @generated
+	 */
+	EAttribute getSetPrice_WholeOrder();
 
 	/**
 	 * Returns the meta object for class '{@link uk.ac.york.cs.eng2.offers.MultiBuyPrice <em>Multi Buy Price</em>}'.
@@ -1871,36 +1748,15 @@ public interface OffersPackage extends EPackage {
 	EAttribute getMultiBuyPrice_PayForQuantity();
 
 	/**
-	 * Returns the meta object for class '{@link uk.ac.york.cs.eng2.offers.AddFreeProduct <em>Add Free Product</em>}'.
+	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.MultiBuyPrice#getPayAmount <em>Pay Amount</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Add Free Product</em>'.
-	 * @see uk.ac.york.cs.eng2.offers.AddFreeProduct
+	 * @return the meta object for the attribute '<em>Pay Amount</em>'.
+	 * @see uk.ac.york.cs.eng2.offers.MultiBuyPrice#getPayAmount()
+	 * @see #getMultiBuyPrice()
 	 * @generated
 	 */
-	EClass getAddFreeProduct();
-
-	/**
-	 * Returns the meta object for the reference '{@link uk.ac.york.cs.eng2.offers.AddFreeProduct#getProduct <em>Product</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Product</em>'.
-	 * @see uk.ac.york.cs.eng2.offers.AddFreeProduct#getProduct()
-	 * @see #getAddFreeProduct()
-	 * @generated
-	 */
-	EReference getAddFreeProduct_Product();
-
-	/**
-	 * Returns the meta object for the attribute '{@link uk.ac.york.cs.eng2.offers.AddFreeProduct#getQuantity <em>Quantity</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Quantity</em>'.
-	 * @see uk.ac.york.cs.eng2.offers.AddFreeProduct#getQuantity()
-	 * @see #getAddFreeProduct()
-	 * @generated
-	 */
-	EAttribute getAddFreeProduct_Quantity();
+	EAttribute getMultiBuyPrice_PayAmount();
 
 	/**
 	 * Returns the meta object for class '{@link uk.ac.york.cs.eng2.offers.Condition <em>Condition</em>}'.
@@ -2359,6 +2215,14 @@ public interface OffersPackage extends EPackage {
 		EReference OFFER_RULE__RULE_TRIGGER = eINSTANCE.getOfferRule_RuleTrigger();
 
 		/**
+		 * The meta object literal for the '<em><b>Max Uses Per Day</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OFFER_RULE__MAX_USES_PER_DAY = eINSTANCE.getOfferRule_MaxUsesPerDay();
+
+		/**
 		 * The meta object literal for the '{@link uk.ac.york.cs.eng2.offers.impl.RuleTriggerImpl <em>Rule Trigger</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2421,30 +2285,6 @@ public interface OffersPackage extends EPackage {
 		EClass SCOPED_ACTION = eINSTANCE.getScopedAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Max Quantity</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SCOPED_ACTION__MAX_QUANTITY = eINSTANCE.getScopedAction_MaxQuantity();
-
-		/**
-		 * The meta object literal for the '<em><b>Max Uses Per Day</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SCOPED_ACTION__MAX_USES_PER_DAY = eINSTANCE.getScopedAction_MaxUsesPerDay();
-
-		/**
-		 * The meta object literal for the '<em><b>Whole Order</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SCOPED_ACTION__WHOLE_ORDER = eINSTANCE.getScopedAction_WholeOrder();
-
-		/**
 		 * The meta object literal for the '<em><b>Targets</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2497,6 +2337,22 @@ public interface OffersPackage extends EPackage {
 		EAttribute PERCENTAGE_DISCOUNT__PERCENT = eINSTANCE.getPercentageDiscount_Percent();
 
 		/**
+		 * The meta object literal for the '<em><b>Max Quantity</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERCENTAGE_DISCOUNT__MAX_QUANTITY = eINSTANCE.getPercentageDiscount_MaxQuantity();
+
+		/**
+		 * The meta object literal for the '<em><b>Whole Order</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERCENTAGE_DISCOUNT__WHOLE_ORDER = eINSTANCE.getPercentageDiscount_WholeOrder();
+
+		/**
 		 * The meta object literal for the '{@link uk.ac.york.cs.eng2.offers.impl.SetPriceImpl <em>Set Price</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2513,6 +2369,22 @@ public interface OffersPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SET_PRICE__AMOUNT = eINSTANCE.getSetPrice_Amount();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Quantity</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SET_PRICE__MAX_QUANTITY = eINSTANCE.getSetPrice_MaxQuantity();
+
+		/**
+		 * The meta object literal for the '<em><b>Whole Order</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SET_PRICE__WHOLE_ORDER = eINSTANCE.getSetPrice_WholeOrder();
 
 		/**
 		 * The meta object literal for the '{@link uk.ac.york.cs.eng2.offers.impl.MultiBuyPriceImpl <em>Multi Buy Price</em>}' class.
@@ -2541,30 +2413,12 @@ public interface OffersPackage extends EPackage {
 		EAttribute MULTI_BUY_PRICE__PAY_FOR_QUANTITY = eINSTANCE.getMultiBuyPrice_PayForQuantity();
 
 		/**
-		 * The meta object literal for the '{@link uk.ac.york.cs.eng2.offers.impl.AddFreeProductImpl <em>Add Free Product</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see uk.ac.york.cs.eng2.offers.impl.AddFreeProductImpl
-		 * @see uk.ac.york.cs.eng2.offers.impl.OffersPackageImpl#getAddFreeProduct()
-		 * @generated
-		 */
-		EClass ADD_FREE_PRODUCT = eINSTANCE.getAddFreeProduct();
-
-		/**
-		 * The meta object literal for the '<em><b>Product</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Pay Amount</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ADD_FREE_PRODUCT__PRODUCT = eINSTANCE.getAddFreeProduct_Product();
-
-		/**
-		 * The meta object literal for the '<em><b>Quantity</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ADD_FREE_PRODUCT__QUANTITY = eINSTANCE.getAddFreeProduct_Quantity();
+		EAttribute MULTI_BUY_PRICE__PAY_AMOUNT = eINSTANCE.getMultiBuyPrice_PayAmount();
 
 		/**
 		 * The meta object literal for the '{@link uk.ac.york.cs.eng2.offers.impl.ConditionImpl <em>Condition</em>}' class.

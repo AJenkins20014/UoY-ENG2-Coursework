@@ -1,0 +1,95 @@
+[%
+import "GenerateConditionCall.egl";
+import "GenerateActionCall.egl";
+
+var ruleName = r.name.replaceAll("\\s+","");
+%]
+
+
+
+package uk.ac.york.eng2.products.offers;
+
+import uk.ac.york.eng2.products.offers.conditions.*;
+import uk.ac.york.eng2.products.offers.actions.*;
+import uk.ac.york.eng2.products.repository.ProductRepository;
+import uk.ac.york.eng2.products.repository.TagRepository;
+
+import java.util.List;
+import java.time.LocalDate;
+
+public class [%=ruleName%] implements Offer {
+
+	private final ProductRepository productRepository;
+    private final TagRepository tagRepository;
+    
+    private LocalDate lastResetDate = LocalDate.now();
+    private int usesToday;
+
+	public [%=ruleName%](ProductRepository productRepository, TagRepository tagRepository) {
+        this.productRepository = productRepository;
+        this.tagRepository = tagRepository;
+    }
+
+	@Override
+	public OrderContext apply(OrderContext context) {
+
+		// Reset daily offer uses
+		resetCounter(context);
+		
+		// Check daily uses
+		Integer maxUses = [%= r.maxUsesPerDay != null ? r.maxUsesPerDay.toString() : "null" %];
+		boolean withinDailyUses = true;
+		if (maxUses != null && maxUses > 0 && usesToday >= maxUses) {
+		    withinDailyUses = false;
+		}
+
+		
+		
+		// Check conditions
+		int highestMatches = 0;
+		int matches = 0;
+		if(withinDailyUses){
+			
+			
+			[%for (c in r.conditions) {%]
+				[%=generateConditionCall(c)%]
+				
+				if (matches > highestMatches) highestMatches = matches;
+				
+				[%}%] 
+		}
+		boolean conditionsMet = highestMatches > 0;
+		
+		if (conditionsMet){
+			
+			[%for (a in r.actions) {%]
+				[% var repeat = a.repeatable == true ? true : false; %]
+		            [% if (repeat) { %]
+		            	for (int i=0; i < highestMatches; i++){
+		            		[%=generateActionCall(a)%]
+		            	}
+		            [%}
+		            else {
+		            	%][%=generateActionCall(a)%][%
+		            }%]   
+	            [%}%]
+			
+			usesToday++;
+		}
+		
+		
+		
+		
+
+		return context;
+	}
+	
+	private void resetCounter(OrderContext context){
+		if (!context.orderDate.isEqual(lastResetDate)) {
+		        usesToday = 0;
+		        lastResetDate = context.orderDate;
+		    }
+	}
+}
+
+

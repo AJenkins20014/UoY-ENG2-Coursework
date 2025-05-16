@@ -121,15 +121,6 @@ public interface OffersFactory extends EFactory {
 	MultiBuyPrice createMultiBuyPrice();
 
 	/**
-	 * Returns a new object of class '<em>Add Free Product</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Add Free Product</em>'.
-	 * @generated
-	 */
-	AddFreeProduct createAddFreeProduct();
-
-	/**
 	 * Returns a new object of class '<em>Requires Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

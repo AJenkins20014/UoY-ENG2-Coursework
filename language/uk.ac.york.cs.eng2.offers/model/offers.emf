@@ -37,6 +37,7 @@ class OfferRule {
 	val Action[*] actions;
 	val Condition[*] conditions;
 	val RuleTrigger[*] ruleTrigger;
+	attr Integer maxUsesPerDay;
 }
 
 class RuleTrigger {
@@ -52,37 +53,34 @@ enum TriggerType {
 
 abstract class Action {
 	attr String name;
-	attr Boolean repeatable = "false";
+	attr Boolean repeatable = "false"; // If conditions are met multiple times, does the action apply multiple times?
 }
 
 abstract class ScopedAction extends Action {
-	attr Integer maxQuantity;
-	attr Integer maxUsesPerDay;
-	attr Boolean wholeOrder = "false";
 	val TargetGroup[*] targets;
 	attr MatchType targetMatchType;
 }
 
-class FlatDiscount extends ScopedAction {
+class FlatDiscount extends ScopedAction { // Always applies to whole order
 	attr Double amount;
 }
 
 class PercentageDiscount extends ScopedAction {
 	attr Double percent;
+	attr Integer maxQuantity; // Max number of products to apply this to (if not whole order)
+	attr Boolean wholeOrder = "false";
 }
 
 class SetPrice extends ScopedAction {
-	attr Double amount;
+	attr Double amount; // Max number of products to apply this to (if not whole order)
+	attr Integer maxQuantity;
+	attr Boolean wholeOrder = "false";
 }
 
 class MultiBuyPrice extends ScopedAction {
 	attr Integer qualifyingQuantity;
 	attr Integer payForQuantity;
-}
-
-class AddFreeProduct extends Action {
-	ref Product product;
-	attr Integer quantity;
+	attr Double payAmount; // Overrides payForQuantity
 }
 
 abstract class Condition {

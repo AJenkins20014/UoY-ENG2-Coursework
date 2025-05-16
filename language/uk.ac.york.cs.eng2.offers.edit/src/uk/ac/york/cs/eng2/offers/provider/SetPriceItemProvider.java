@@ -46,6 +46,8 @@ public class SetPriceItemProvider extends ScopedActionItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addAmountPropertyDescriptor(object);
+			addMaxQuantityPropertyDescriptor(object);
+			addWholeOrderPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -64,6 +66,50 @@ public class SetPriceItemProvider extends ScopedActionItemProvider {
 				 getString("_UI_SetPrice_amount_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_SetPrice_amount_feature", "_UI_SetPrice_type"),
 				 OffersPackage.Literals.SET_PRICE__AMOUNT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Max Quantity feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMaxQuantityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SetPrice_maxQuantity_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SetPrice_maxQuantity_feature", "_UI_SetPrice_type"),
+				 OffersPackage.Literals.SET_PRICE__MAX_QUANTITY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Whole Order feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addWholeOrderPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SetPrice_wholeOrder_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SetPrice_wholeOrder_feature", "_UI_SetPrice_type"),
+				 OffersPackage.Literals.SET_PRICE__WHOLE_ORDER,
 				 true,
 				 false,
 				 false,
@@ -111,6 +157,8 @@ public class SetPriceItemProvider extends ScopedActionItemProvider {
 
 		switch (notification.getFeatureID(SetPrice.class)) {
 			case OffersPackage.SET_PRICE__AMOUNT:
+			case OffersPackage.SET_PRICE__MAX_QUANTITY:
+			case OffersPackage.SET_PRICE__WHOLE_ORDER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

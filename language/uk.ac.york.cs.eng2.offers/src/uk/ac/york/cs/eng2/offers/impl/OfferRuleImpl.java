@@ -36,6 +36,7 @@ import uk.ac.york.cs.eng2.offers.RuleTrigger;
  *   <li>{@link uk.ac.york.cs.eng2.offers.impl.OfferRuleImpl#getActions <em>Actions</em>}</li>
  *   <li>{@link uk.ac.york.cs.eng2.offers.impl.OfferRuleImpl#getConditions <em>Conditions</em>}</li>
  *   <li>{@link uk.ac.york.cs.eng2.offers.impl.OfferRuleImpl#getRuleTrigger <em>Rule Trigger</em>}</li>
+ *   <li>{@link uk.ac.york.cs.eng2.offers.impl.OfferRuleImpl#getMaxUsesPerDay <em>Max Uses Per Day</em>}</li>
  * </ul>
  *
  * @generated
@@ -90,6 +91,26 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 	 * @ordered
 	 */
 	protected EList<RuleTrigger> ruleTrigger;
+
+	/**
+	 * The default value of the '{@link #getMaxUsesPerDay() <em>Max Uses Per Day</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxUsesPerDay()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Integer MAX_USES_PER_DAY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMaxUsesPerDay() <em>Max Uses Per Day</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMaxUsesPerDay()
+	 * @generated
+	 * @ordered
+	 */
+	protected Integer maxUsesPerDay = MAX_USES_PER_DAY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -178,6 +199,29 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 	 * @generated
 	 */
 	@Override
+	public Integer getMaxUsesPerDay() {
+		return maxUsesPerDay;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setMaxUsesPerDay(Integer newMaxUsesPerDay) {
+		Integer oldMaxUsesPerDay = maxUsesPerDay;
+		maxUsesPerDay = newMaxUsesPerDay;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OffersPackage.OFFER_RULE__MAX_USES_PER_DAY, oldMaxUsesPerDay, maxUsesPerDay));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case OffersPackage.OFFER_RULE__ACTIONS:
@@ -206,6 +250,8 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 				return getConditions();
 			case OffersPackage.OFFER_RULE__RULE_TRIGGER:
 				return getRuleTrigger();
+			case OffersPackage.OFFER_RULE__MAX_USES_PER_DAY:
+				return getMaxUsesPerDay();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -234,6 +280,9 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 				getRuleTrigger().clear();
 				getRuleTrigger().addAll((Collection<? extends RuleTrigger>)newValue);
 				return;
+			case OffersPackage.OFFER_RULE__MAX_USES_PER_DAY:
+				setMaxUsesPerDay((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -258,6 +307,9 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 			case OffersPackage.OFFER_RULE__RULE_TRIGGER:
 				getRuleTrigger().clear();
 				return;
+			case OffersPackage.OFFER_RULE__MAX_USES_PER_DAY:
+				setMaxUsesPerDay(MAX_USES_PER_DAY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -278,6 +330,8 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 				return conditions != null && !conditions.isEmpty();
 			case OffersPackage.OFFER_RULE__RULE_TRIGGER:
 				return ruleTrigger != null && !ruleTrigger.isEmpty();
+			case OffersPackage.OFFER_RULE__MAX_USES_PER_DAY:
+				return MAX_USES_PER_DAY_EDEFAULT == null ? maxUsesPerDay != null : !MAX_USES_PER_DAY_EDEFAULT.equals(maxUsesPerDay);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -294,6 +348,8 @@ public class OfferRuleImpl extends MinimalEObjectImpl.Container implements Offer
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", maxUsesPerDay: ");
+		result.append(maxUsesPerDay);
 		result.append(')');
 		return result.toString();
 	}

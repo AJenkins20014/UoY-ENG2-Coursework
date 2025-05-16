@@ -47,6 +47,7 @@ public class MultiBuyPriceItemProvider extends ScopedActionItemProvider {
 
 			addQualifyingQuantityPropertyDescriptor(object);
 			addPayForQuantityPropertyDescriptor(object);
+			addPayAmountPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -96,6 +97,28 @@ public class MultiBuyPriceItemProvider extends ScopedActionItemProvider {
 	}
 
 	/**
+	 * This adds a property descriptor for the Pay Amount feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPayAmountPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MultiBuyPrice_payAmount_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MultiBuyPrice_payAmount_feature", "_UI_MultiBuyPrice_type"),
+				 OffersPackage.Literals.MULTI_BUY_PRICE__PAY_AMOUNT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns MultiBuyPrice.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -135,6 +158,7 @@ public class MultiBuyPriceItemProvider extends ScopedActionItemProvider {
 		switch (notification.getFeatureID(MultiBuyPrice.class)) {
 			case OffersPackage.MULTI_BUY_PRICE__QUALIFYING_QUANTITY:
 			case OffersPackage.MULTI_BUY_PRICE__PAY_FOR_QUANTITY:
+			case OffersPackage.MULTI_BUY_PRICE__PAY_AMOUNT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

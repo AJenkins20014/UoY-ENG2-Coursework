@@ -60,13 +60,6 @@
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
             </style>
           </subNodeMappings>
-          <subNodeMappings name="offers.rules.subnodes.addFreeProductAction" label="Add Free Product Action Subnode" semanticCandidatesExpression="feature:actions" domainClass="offers::AddFreeProduct">
-            <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
-            </style>
-          </subNodeMappings>
           <subNodeMappings name="offers.rules.subnodes.requiresTargetCondition" label="Requires Target Condition Subnode" semanticCandidatesExpression="feature:conditions" domainClass="offers::RequiresTarget">
             <borderedNodeMappings name="offers.rules.conditionNodes.targetGroup" label="Condition Target Group" semanticCandidatesExpression="feature:targets" domainClass="offers::TargetGroup">
               <style xsi:type="style:SquareDescription" labelSize="12" labelExpression="feature:matchType" labelPosition="node" resizeKind="NSEW">
@@ -153,13 +146,6 @@
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="offers::MultiBuyPrice" referenceName="actions" variableName="New Multi Buy Price Action"/>
-            </initialOperation>
-          </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="offers.actions.tools.createAddFreeProductAction" label="Create Add Free Product Action" nodeMappings="//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']/@additionalLayers[name='ActionsAndConditions']/@containerMappings[name='offers.actions.containers.offerRule']/@subNodeMappings[name='offers.rules.subnodes.addFreeProductAction']">
-            <variable name="container"/>
-            <viewVariable name="containerView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:CreateInstance" typeName="offers::AddFreeProduct" referenceName="actions" variableName="New Add Free Product Action"/>
             </initialOperation>
           </ownedTools>
           <ownedTools xsi:type="tool:NodeCreationDescription" name="offers.actions.tools.createActionTargetGroup" label="Create Action Target Group" nodeMappings="//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']/@additionalLayers[name='ActionsAndConditions']/@containerMappings[name='offers.actions.containers.offerRule']/@subNodeMappings[name='offers.rules.subnodes.scopedAction']/@borderedNodeMappings[name='offers.rules.actionNodes.targetGroup']">

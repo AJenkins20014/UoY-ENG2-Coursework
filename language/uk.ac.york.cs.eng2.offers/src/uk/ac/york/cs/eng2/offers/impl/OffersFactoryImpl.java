@@ -68,7 +68,6 @@ public class OffersFactoryImpl extends EFactoryImpl implements OffersFactory {
 			case OffersPackage.PERCENTAGE_DISCOUNT: return createPercentageDiscount();
 			case OffersPackage.SET_PRICE: return createSetPrice();
 			case OffersPackage.MULTI_BUY_PRICE: return createMultiBuyPrice();
-			case OffersPackage.ADD_FREE_PRODUCT: return createAddFreeProduct();
 			case OffersPackage.REQUIRES_TARGET: return createRequiresTarget();
 			case OffersPackage.ORDER_TOTAL: return createOrderTotal();
 			case OffersPackage.ON_DATE: return createOnDate();
@@ -231,17 +230,6 @@ public class OffersFactoryImpl extends EFactoryImpl implements OffersFactory {
 	public MultiBuyPrice createMultiBuyPrice() {
 		MultiBuyPriceImpl multiBuyPrice = new MultiBuyPriceImpl();
 		return multiBuyPrice;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public AddFreeProduct createAddFreeProduct() {
-		AddFreeProductImpl addFreeProduct = new AddFreeProductImpl();
-		return addFreeProduct;
 	}
 
 	/**

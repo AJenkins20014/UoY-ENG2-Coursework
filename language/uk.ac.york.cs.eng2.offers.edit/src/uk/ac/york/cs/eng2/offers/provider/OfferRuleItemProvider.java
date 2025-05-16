@@ -64,6 +64,7 @@ public class OfferRuleItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addMaxUsesPerDayPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -82,6 +83,28 @@ public class OfferRuleItemProvider
 				 getString("_UI_OfferRule_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_OfferRule_name_feature", "_UI_OfferRule_type"),
 				 OffersPackage.Literals.OFFER_RULE__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Max Uses Per Day feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMaxUsesPerDayPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_OfferRule_maxUsesPerDay_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_OfferRule_maxUsesPerDay_feature", "_UI_OfferRule_type"),
+				 OffersPackage.Literals.OFFER_RULE__MAX_USES_PER_DAY,
 				 true,
 				 false,
 				 false,
@@ -161,6 +184,7 @@ public class OfferRuleItemProvider
 
 		switch (notification.getFeatureID(OfferRule.class)) {
 			case OffersPackage.OFFER_RULE__NAME:
+			case OffersPackage.OFFER_RULE__MAX_USES_PER_DAY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case OffersPackage.OFFER_RULE__ACTIONS:
@@ -202,11 +226,6 @@ public class OfferRuleItemProvider
 			(createChildParameter
 				(OffersPackage.Literals.OFFER_RULE__ACTIONS,
 				 OffersFactory.eINSTANCE.createMultiBuyPrice()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OffersPackage.Literals.OFFER_RULE__ACTIONS,
-				 OffersFactory.eINSTANCE.createAddFreeProduct()));
 
 		newChildDescriptors.add
 			(createChildParameter
