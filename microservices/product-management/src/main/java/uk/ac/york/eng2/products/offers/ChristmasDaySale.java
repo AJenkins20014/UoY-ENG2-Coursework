@@ -40,7 +40,7 @@ public class ChristmasDaySale implements Offer {
 		// Check conditions
 		int highestMatches = 0;
 		int matches = 0;
-		boolean conditionsMet = true;
+		boolean conditionsMet = withinDailyUses;
 		if(withinDailyUses){
 
 			matches = OnDateCondition.isValid(context, new Date(LocalDate.now().getYear(), 12, 25), new Date(LocalDate.now().getYear(), 12, 25));

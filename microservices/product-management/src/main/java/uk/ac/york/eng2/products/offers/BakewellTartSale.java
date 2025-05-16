@@ -40,7 +40,7 @@ public class BakewellTartSale implements Offer {
 		// Check conditions
 		int highestMatches = 0;
 		int matches = 0;
-		boolean conditionsMet = true;
+		boolean conditionsMet = withinDailyUses;
 		if(withinDailyUses){
 
 			matches = RequiresTargetCondition.isValid(

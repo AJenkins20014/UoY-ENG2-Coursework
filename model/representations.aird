@@ -4,7 +4,7 @@
     <semanticResources>ExampleRules.offers</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_RNz84DELEfC1Wb8Bpt0gJA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/uk.ac.york.cs.eng2.offers.viewpoint/description/viewpoint.odesign#//@ownedViewpoints[name='']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_VO-FMDELEfC1Wb8Bpt0gJA" name="Example Rules" repPath="#_VOvbsDELEfC1Wb8Bpt0gJA" changeId="1747374908841">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_VO-FMDELEfC1Wb8Bpt0gJA" name="Example Rules" repPath="#_VOvbsDELEfC1Wb8Bpt0gJA" changeId="1747428981830">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/uk.ac.york.cs.eng2.offers.viewpoint/description/viewpoint.odesign#//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']"/>
         <target xmi:type="dis:Model" href="ExampleRules.offers#/"/>
       </ownedRepresentationDescriptors>
@@ -834,6 +834,22 @@
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8Q14OjIREfC4YIWHDuBBjQ" id="(0.23,1.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8Q14OzIREfC4YIWHDuBBjQ" id="(0.5740740740740741,0.0)"/>
         </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_0HZuoDKPEfCrmemU2PCX6g" type="4001" element="_0HIB3jKPEfCrmemU2PCX6g" source="_H3QvVzEuEfCdtumGWJR1Bg" target="_H3QvZTEuEfCdtumGWJR1Bg">
+          <children xmi:type="notation:Node" xmi:id="_0HeAEDKPEfCrmemU2PCX6g" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0HeAETKPEfCrmemU2PCX6g" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_0HenIDKPEfCrmemU2PCX6g" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0HenITKPEfCrmemU2PCX6g" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_0HenIjKPEfCrmemU2PCX6g" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0HenIzKPEfCrmemU2PCX6g" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_0HZuoTKPEfCrmemU2PCX6g"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_0HZuojKPEfCrmemU2PCX6g" fontName="Segoe UI" fontHeight="12"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0HZuozKPEfCrmemU2PCX6g" points="[0, 0, -99, 0]$[99, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0Hf1QDKPEfCrmemU2PCX6g" id="(1.0,0.12755102040816327)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0Hf1QTKPEfCrmemU2PCX6g" id="(0.0,0.095)"/>
+        </edges>
       </data>
     </ownedAnnotationEntries>
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_VPcmUDELEfC1Wb8Bpt0gJA" source="DANNOTATION_CUSTOMIZATION_KEY">
@@ -1110,7 +1126,7 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/uk.ac.york.cs.eng2.offers.viewpoint/description/viewpoint.odesign#//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']/@additionalLayers[name='ActionsAndConditions']/@containerMappings[name='offers.actions.containers.offerRule']/@subNodeMappings[name='offers.rules.subnodes.requiresTargetCondition']"/>
       </ownedDiagramElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_H3IzhTEuEfCdtumGWJR1Bg" name="Large Pizza Bundle" outgoingEdges="_jD4rJDFOEfCScNCOKRkaOg" incomingEdges="_ijQqUDFOEfCScNCOKRkaOg">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_H3IzhTEuEfCdtumGWJR1Bg" name="Large Pizza Bundle" outgoingEdges="_jD4rJDFOEfCScNCOKRkaOg _0HIB3jKPEfCrmemU2PCX6g" incomingEdges="_ijQqUDFOEfCScNCOKRkaOg">
       <target xmi:type="dis:OfferRule" href="ExampleRules.offers#//@offerRules.1"/>
       <semanticElements xmi:type="dis:OfferRule" href="ExampleRules.offers#//@offerRules.1"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -1236,7 +1252,7 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/uk.ac.york.cs.eng2.offers.viewpoint/description/viewpoint.odesign#//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']/@additionalLayers[name='ActionsAndConditions']/@containerMappings[name='offers.actions.containers.offerRule']/@subNodeMappings[name='offers.rules.subnodes.requiresTargetCondition']"/>
       </ownedDiagramElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_H3IzizEuEfCdtumGWJR1Bg" name="Christmas Day Sale" outgoingEdges="_mAMrTDFOEfCScNCOKRkaOg" incomingEdges="_lW_9SDFOEfCScNCOKRkaOg">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_H3IzizEuEfCdtumGWJR1Bg" name="Christmas Day Sale" outgoingEdges="_mAMrTDFOEfCScNCOKRkaOg" incomingEdges="_lW_9SDFOEfCScNCOKRkaOg _0HIB3jKPEfCrmemU2PCX6g">
       <target xmi:type="dis:OfferRule" href="ExampleRules.offers#//@offerRules.3"/>
       <semanticElements xmi:type="dis:OfferRule" href="ExampleRules.offers#//@offerRules.3"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -1475,6 +1491,15 @@
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_8QvKpjIREfC4YIWHDuBBjQ" labelSize="12"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/uk.ac.york.cs.eng2.offers.viewpoint/description/viewpoint.odesign#//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']/@additionalLayers[name='Targets']/@edgeMappings[name='offers.rules.edges.targetTagEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_0HIB3jKPEfCrmemU2PCX6g" name="IF_MATCH" sourceNode="_H3IzhTEuEfCdtumGWJR1Bg" targetNode="_H3IzizEuEfCdtumGWJR1Bg">
+      <target xmi:type="dis:RuleTrigger" href="ExampleRules.offers#//@offerRules.1/@ruleTrigger.1"/>
+      <semanticElements xmi:type="dis:RuleTrigger" href="ExampleRules.offers#//@offerRules.1/@ruleTrigger.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_0HIo4DKPEfCrmemU2PCX6g" lineStyle="dash" size="2" strokeColor="239,41,41">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/uk.ac.york.cs.eng2.offers.viewpoint/description/viewpoint.odesign#//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']/@defaultLayer/@edgeMappings[name='offers.rules.edges.ruleTrigger']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_0HIo4TKPEfCrmemU2PCX6g" labelSize="12"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/uk.ac.york.cs.eng2.offers.viewpoint/description/viewpoint.odesign#//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']/@defaultLayer/@edgeMappings[name='offers.rules.edges.ruleTrigger']"/>
     </ownedDiagramElements>
     <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/uk.ac.york.cs.eng2.offers.viewpoint/description/viewpoint.odesign#//@ownedViewpoints[name='']/@ownedRepresentations[name='offers.diagrams.rules']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_VO3-kDELEfC1Wb8Bpt0gJA"/>

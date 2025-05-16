@@ -40,12 +40,12 @@ public class TwoForOnePizzaDeal implements Offer {
 		// Check conditions
 		int highestMatches = 0;
 		int matches = 0;
-		boolean conditionsMet = true;
+		boolean conditionsMet = withinDailyUses;
 		if(withinDailyUses){
 
 			matches = RequiresTargetCondition.isValid(
 			context,
-			List.of(new TargetGroup(List.of(), List.of("pizza"), List.of(), TargetGroup.MatchType.ALL)), TargetGroup.MatchType.ALL, 1, 0, productRepository,
+			List.of(new TargetGroup(List.of(), List.of("pizza"), List.of(), TargetGroup.MatchType.ALL)), TargetGroup.MatchType.ALL, 2, 0, productRepository,
 			tagRepository);
 
 			if (matches < 1) conditionsMet = false;

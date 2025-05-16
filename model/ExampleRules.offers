@@ -16,16 +16,17 @@
     <actions xsi:type="dis:MultiBuyPrice" name="2 large pizzas for £10" repeatable="true" qualifyingQuantity="2" payAmount="10.0">
       <targets tags="//@tags.1 //@tags.0"/>
     </actions>
-    <conditions xsi:type="dis:RequiresTarget" name="Requires 2 large pizzas">
+    <conditions xsi:type="dis:RequiresTarget" name="Requires 2 large pizzas" minQuantity="2">
       <targets tags="//@tags.0 //@tags.1"/>
     </conditions>
     <ruleTrigger type="IF_NOT_MATCH" targetOffer="//@offerRules.2"/>
+    <ruleTrigger type="IF_MATCH" targetOffer="//@offerRules.3"/>
   </offerRules>
   <offerRules name="TwoForOne Pizza Deal">
     <actions xsi:type="dis:MultiBuyPrice" name="Pizza 2-for-1" repeatable="true" qualifyingQuantity="2" payForQuantity="1">
       <targets tags="//@tags.1"/>
     </actions>
-    <conditions xsi:type="dis:RequiresTarget" name="Requires 2 pizzas">
+    <conditions xsi:type="dis:RequiresTarget" name="Requires 2 pizzas" minQuantity="2">
       <targets tags="//@tags.1"/>
     </conditions>
     <ruleTrigger targetOffer="//@offerRules.3"/>
